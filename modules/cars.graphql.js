@@ -1,4 +1,4 @@
-export  carsQuery = `
+export const carsQuery = `
 type Car {
 _id:ID!
 brand:String

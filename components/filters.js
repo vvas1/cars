@@ -2,8 +2,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Checkbox from "@material-ui/core/Checkbox";
 import List from "@material-ui/core/List";
 import {FormControlLabel} from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import {CheckBox} from "@material-ui/icons";
+
 import FormGroup from "@material-ui/core/FormGroup";
 import  '../styles/filter.module.scss'
 import {useState} from "react";
@@ -46,6 +45,7 @@ const mappedBrands = brands.map((value =>{
                         labelPlacement="end"
                     />
                 </FormGroup>
+
             } )
         )
         return <div style={{display:'flex'}}>
