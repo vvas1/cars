@@ -1,0 +1,45 @@
+.header {
+  background-color: #280b66;
+  color: white;
+  padding:0 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 4rem;
+  margin: 1rem;
+}
+.header form {
+  display: grid;
+  grid-template-columns: 10fr 1fr;
+}
+.header div {
+ width: 50vw;
+  cursor: pointer;
+}
+
+.header div input{
+      padding:.5rem 1rem;
+}
+
+.header div input fieldset {
+      border-color: white;
+}
+
+.header form button {
+      color: black;
+  border-left: 1px solid black;
+  margin: 0;
+  }
+
+.header button {
+    color: white;
+    border: 1px solid white;
+  margin: 1rem;
+  }
+
+
+
