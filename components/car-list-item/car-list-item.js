@@ -1,6 +1,7 @@
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Link from 'next/link';
 import { useStyles } from './car-list-item.styles';
 
 export function CarListItem({
@@ -27,10 +28,7 @@ export function CarListItem({
         </div>
         <span className={classes.year}>Year: {year}</span>
         <div className={classes.buttonDiv}>
-
-          <Button variant="outlined" color="primary">
-                        Show more
-          </Button>
+            <Button variant="outlined" color="primary">Show more</Button>
         </div>
       </div>
     </Card>
