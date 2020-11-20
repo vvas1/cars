@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const cars = new Schema({
-    _id: Schema.ObjectId,
-    brand:String,
-    model:String,
-    year:Number,
-    mileage:Number,
-    firstOwner:Boolean,
-    engine:String,
-    body:String,
-    externalColor:String,
-    simpleColor:String
+  brand: String,
+  model: String,
+  year: Number,
+  firstOwner: Boolean,
+  price: Number,
+  mileage: Number,
+  photo: String,
+  engine: String,
+  transmission: String,
+  categories: [String],
+  externalColor: String,
+  colorSimpleName: String,
 });
 
 export default mongoose.models && mongoose.models.cars
-    ? mongoose.models.cars
-    : mongoose.model('cars', cars, 'cars');
+  ? mongoose.models.cars
+  : mongoose.model('cars', cars, 'cars');

@@ -1,35 +1,35 @@
-import styles from '../styles/header.module.scss'
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import InputBase from "@material-ui/core/InputBase";
-import {Divider} from "@material-ui/core";
-import {useState} from "react";
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import { useState } from 'react';
+import styles from '../styles/header.module.scss'
 
-export  default  function Header (){
+export default function Header() {
+  const [searchText, setSearchText] = useState('')
+  const submitHandler = (e) => {
+    e.preventDefault()
+    setSearchText('')
+  }
 
-    const submitHandler=(e)=>{
-        e.preventDefault()
+  const changeHandler = (e) => {
+    setSearchText(e.target.value)
+  }
 
+  return <div className={styles.header}>
+    <h1>CARS</h1>
+    <Paper style={ { display: 'flex', justifyContent: 'stretch' } } component={'form'}>
+      <InputBase type='text' value={searchText} onChange={changeHandler} id='searchfield' variant={'outlined'}>
+        <Button className={'search-button'}>
+          <SearchIcon />
+        </Button>
+      </InputBase>
+      <Button type={'submit'} onClick={submitHandler}>
+        <SearchIcon />
+      </Button>
 
-        console.log('submitted')
-    }
-    return <div className={styles.header}>
-        <h1>CARS</h1>
-        <Paper component={'form'}>
-        <InputBase id='searchfield' variant={"outlined"}>
-            <Button className={'search-button'}>
-                <SearchIcon />
-            </Button>
-        </InputBase>
-            <Button type={'submit'} onClick={submitHandler}>
-                <SearchIcon />
-            </Button>
+    </Paper>
 
-            </Paper>
-
-        <Button variant="outlined">Add a new car</Button>
-    </div>
+    <Button variant="outlined">Add a new car</Button>
+  </div>
 }
