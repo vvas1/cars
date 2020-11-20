@@ -8,7 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const dialogTitle = 'Car deleting';
 
 export default function DialogWindow({ open, handleClose, dialogText }) {
-  console.log(open)
   return (
     <div>
       <Dialog

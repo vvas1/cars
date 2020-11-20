@@ -18,7 +18,7 @@ export default function Header() {
 
   return <div className={styles.header}>
     <h1>CARS</h1>
-    <Paper component={'form'}>
+    <Paper style={ { display: 'flex', justifyContent: 'stretch' } } component={'form'}>
       <InputBase type='text' value={searchText} onChange={changeHandler} id='searchfield' variant={'outlined'}>
         <Button className={'search-button'}>
           <SearchIcon />

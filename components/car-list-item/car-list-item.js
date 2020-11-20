@@ -11,21 +11,21 @@ export function CarListItem({
     <Card className={classes.root}>
       <img
         className={classes.photo}
-        title={`${brand || ''} ${model || ''} year: ${year || ''} price: ${price || ''}`}
-        alt={`${brand || ''} ${model || ''} year: ${year || ''} price: ${price || ''}`}
-        src={photo || ''}
+        title={`${brand} ${model} year: ${year} price: ${price}`}
+        alt={`${brand} ${model} year: ${year} price: ${price}`}
+        src={photo}
       />
       <div className={classes.textDiv}>
         <div className={classes.carTitle}>
           <Typography>
-            <span className={classes.fontWeight900}>{brand || ''}&nbsp;</span>
-            <span className={classes.fontWeight900}>{model || ''}</span>
+            <span className={classes.fontWeight900}>{brand} </span>
+            <span className={classes.fontWeight900}>{model}</span>
           </Typography>
           <Typography className={classes.price} title="car price">
-                        $&nbsp;{price || ''}
+                        $&nbsp;{price}
           </Typography>
         </div>
-        <span className={classes.year}>Year: {year || ''}</span>
+        <span className={classes.year}>Year: {year}</span>
         <div className={classes.buttonDiv}>
 
           <Button variant="outlined" color="primary">

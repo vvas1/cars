@@ -4,10 +4,10 @@ export const useStyles = makeStyles({
   root: {
     display: 'flex',
     alignItems: 'center',
-    margin: '.5rem',
-    border: '.2px solid black',
+    margin: '0.5rem',
+    border: '0.2px solid black',
     borderRadius: '4px',
-    paddingLeft: '.5rem',
+    paddingLeft: '0.5rem',
   },
   photo: {
     width: '250px',
@@ -22,7 +22,7 @@ export const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    padding: '.5rem',
+    padding: '0.5rem',
 
     height: 'auto',
     '& button': {
@@ -38,7 +38,7 @@ export const useStyles = makeStyles({
     padding: '0.5rem',
   },
   year: {
-    marginLeft: '.5rem',
+    marginLeft: '0.5rem',
     height: '100%',
   },
   fontWeight900: {

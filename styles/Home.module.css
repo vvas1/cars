@@ -1,9 +1,8 @@
-.main{
+.main {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-
 
 .footer {
   width: 100%;
@@ -16,29 +15,16 @@
 
 .cars {
   width: 100%;
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(490px,1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(490px, 1fr));
   grid-template-rows: auto;
-  grid-gap: .5rem;
-  padding: .5rem;
-  border: .2px solid black;
+  grid-gap: 0.5rem;
+  padding: 0.5rem;
+  border: 0.2px solid black;
   border-radius: 4px;
   list-style: none;
   transition: 1s;
   animation-name: cars;
   animation-iteration-count: 1;
   animation-duration: 1s;
-}
-
-@keyframes cars {
-  0%{
-    transform: translateY(
-            -2000);
-    opacity: 0;
-  }
-  100%{
-    transform: translateY(
-            0);
-    opacity: 0;
-  }
 }

@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server-micro';
-import { carsQuery,carsMutation } from '../../modules/cars.resolvers'
-import { carType,carInputType } from '../../modules/cars.graphql'
+import { carsQuery, carsMutation } from '../../modules/cars.resolvers'
+import { carType, carInputType } from '../../modules/cars.graphql'
 import connectDb from '../../utils/db'
 
 connectDb()
@@ -24,9 +24,9 @@ const resolvers = {
   Query: {
     ...carsQuery,
   },
-  Mutation:{
-    ...carsMutation
-  }
+  Mutation: {
+    ...carsMutation,
+  },
 
 };
 

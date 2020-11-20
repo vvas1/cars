@@ -6,8 +6,8 @@ const carsQuery = {
 }
 const carsMutation = {
   addCar: async (parent, args) => await carsServices.addCar(args),
-  updateCar: async  (parent,args)=> await carsServices.updateCar(args),
-  deleteCar:async  (parent,args)=> await carsServices.deleteCar(args)
+  updateCar: async (parent, args) => await carsServices.updateCar(args),
+  deleteCar: async (parent, args) => await carsServices.deleteCar(args),
 }
 
 export { carsQuery, carsMutation };
