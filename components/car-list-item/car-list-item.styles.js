@@ -22,13 +22,11 @@ export const useStyles = makeStyles({
       transition: '0.5s',
     },
     '@media (max-width: 1000px)': {
-      width: '300px',
+      width: 'auto',
+      height: '240px',
       transition: '0.5s',
     },
-    '@media (max-width: 700px)': {
-      width: '200px',
-      transition: '0.5s',
-    },
+
     '@media (max-width: 500px)': {
       width: '250px',
       transition: '0.5s',
@@ -39,6 +37,10 @@ export const useStyles = makeStyles({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    '@media (max-width:1000px)': {
+      height: '100%',
+      justifyContent: 'space-evenly',
+    },
   },
   buttonDiv: {
     display: 'flex',
@@ -61,11 +63,11 @@ export const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '0.5rem',
-    transition:'0.5s',
+    transition: '0.5s',
     '@media (max-width:1000px)': {
       flexDirection: 'column',
       alignItems: 'center',
-      textAlign:'center'
+      textAlign: 'center',
     },
   },
   year: {
