@@ -1,9 +1,9 @@
-import { ApolloServer, gql } from 'apollo-server-micro';
-import { carsQuery, carsMutation } from '../../modules/cars.resolvers'
-import { carType, carInputType } from '../../modules/cars.graphql'
-import connectDb from '../../utils/db'
+import { ApolloServer, gql } from "apollo-server-micro";
+import { carsQuery, carsMutation } from "../../modules/cars.resolvers";
+import { carType, carInputType } from "../../modules/cars.graphql";
+import connectDb from "../../utils/db";
 
-connectDb()
+connectDb();
 
 const typeDefs = gql`
   ${carType}
@@ -32,7 +32,7 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-const handler = server.createHandler({ path: '/api/graphql' });
+const handler = server.createHandler({ path: "/api/graphql" });
 
 export const config = {
   api: {

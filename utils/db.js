@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const connectDB = async () => {
   const db = process.env.MONGO_URL;
@@ -8,8 +8,7 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
-    });
-    console.log('MongoDB Connected...');
+   });
   } catch (err) {
     console.error(err);
   }
