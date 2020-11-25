@@ -1,4 +1,4 @@
-import Cars from './cars.model'
+import Cars from "./cars.model";
 
 class CarsServices {
   getAllCars() {

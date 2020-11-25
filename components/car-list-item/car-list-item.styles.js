@@ -1,44 +1,44 @@
-const { makeStyles } = require('@material-ui/core');
+const { makeStyles } = require("@material-ui/core");
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    transition: '0.3s ease-in-out',
+    transition: "0.3s ease-in-out",
     flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
-    margin: 'auto',
-    height: '100%',
-    display: 'grid',
-    alignItems: 'stretch',
+    margin: "auto",
+    height: "100%",
+    display: "grid",
+    alignItems: "stretch",
   },
   image: (props) => ({
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     background: `url(${props.photo}) no-repeat center`,
-    backgroundSize: 'cover',
-    '@media (max-width:959px)': {
-      height: '25vw',
+    backgroundSize: "cover",
+    "@media (max-width:959px)": {
+      height: "25vw",
     },
-    '@media (max-width:500px)': {
-      height: '60vw',
+    "@media (max-width:500px)": {
+      height: "60vw",
     },
   }),
   textDiv: {
-    padding: '0 8px !important',
-    '@media (max-width:959px)': {
+    padding: "0 0 0 8px !important",
+    "@media (max-width:959px)": {
 
-      padding: '8px 0 !important',
+      padding: "8px 0 !important",
     },
   },
   buttonDiv: {
-    padding: '8px !important',
-    '& button': {
-      padding: '0.5rem',
-      backgroundColor: 'darkblue',
-      color: 'white',
+    padding: "8px !important",
+    "& button": {
+      padding: "0.5rem",
+      backgroundColor: "darkblue",
+      color: "white",
     },
-    '& button:hover': {
-      backgroundColor: 'blue',
+    "& button:hover": {
+      backgroundColor: "blue",
     },
   },
 }));

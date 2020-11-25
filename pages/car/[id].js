@@ -1,21 +1,8 @@
-import ApolloClient, { gql } from 'apollo-boost';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import PropTypes from 'prop-types';
-import CarDetails from '../../components/car-details/car-details';
-import MainLayout from '../../components/main-layout';
-
-OneCar.propTypes = {
-  car: PropTypes.objectOf({
-    brand: PropTypes.string.isRequired,
-    model: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    mileage: PropTypes.string.isRequired,
-    transmission: PropTypes.string.isRequired,
-    externalColor: PropTypes.string.isRequired,
-    photo: PropTypes.string.isRequired,
-  }).isRequired,
-}
+import ApolloClient, { gql } from "apollo-boost";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import PropTypes from "prop-types";
+import CarDetails from "../../components/car-details/car-details";
+import MainLayout from "../../components/main-layout";
 
 export default function OneCar({ car }) {
   return (
@@ -26,7 +13,7 @@ export default function OneCar({ car }) {
 }
 export async function getStaticProps(ctx) {
   const client = new ApolloClient({
-    uri: 'http://localhost:3000/api/graphql',
+    uri: "http://localhost:3000/api/graphql",
     cache: new InMemoryCache({ addTypename: false }),
   });
   const res = await client.query({
@@ -55,7 +42,7 @@ export async function getStaticProps(ctx) {
 }
 export async function getStaticPaths() {
   const client = new ApolloClient({
-    uri: 'http://localhost:3000/api/graphql',
+    uri: "http://localhost:3000/api/graphql",
   });
   const res = await client.query({
     query: gql`
@@ -78,3 +65,16 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
+
+OneCar.propTypes = {
+  car: PropTypes.shape({
+    brand: PropTypes.string.isRequired,
+    model: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    mileage: PropTypes.number.isRequired,
+    transmission: PropTypes.string.isRequired,
+    externalColor: PropTypes.string.isRequired,
+    photo: PropTypes.string.isRequired,
+  }).isRequired,
+};

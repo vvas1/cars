@@ -1,26 +1,16 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { Button } from '@material-ui/core';
-import Link from 'next/link';
-import PropTypes from 'prop-types';
-import { useStyles } from './car-list-item.styles';
-
-CarListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  brand: PropTypes.string.isRequired,
-  model: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
-  photo: PropTypes.string.isRequired,
-}
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import { Button } from "@material-ui/core";
+import Link from "next/link";
+import PropTypes from "prop-types";
+import { useStyles } from "./car-list-item.styles";
 
 export function CarListItem({
-  id, brand, model, price, photo, year,
+  id, brand, model, price, year, photo,
 }) {
   const classes = useStyles({ photo });
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -38,16 +28,16 @@ export function CarListItem({
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   brand:
-                  {' '}
+                  {" "}
                   {brand}
                 </Typography>
                 <Typography gutterBottom>
                   model:
                   {model}
                 </Typography>
-                <Typography style={{ cursor: 'pointer' }}>
+                <Typography style={{ cursor: "pointer" }}>
                   year:
-                  {' '}
+                  {" "}
                   {year}
                 </Typography>
               </Grid>
@@ -59,8 +49,7 @@ export function CarListItem({
             </Grid>
             <Grid item>
               <Typography gutterBottom>
-                $
-                {price}
+                {`$ ${price}`}
               </Typography>
             </Grid>
           </Grid>
@@ -69,3 +58,12 @@ export function CarListItem({
     </div>
   );
 }
+
+CarListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  brand: PropTypes.string.isRequired,
+  model: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
+  photo: PropTypes.string.isRequired,
+};

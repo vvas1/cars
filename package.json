@@ -27,13 +27,13 @@
   "husky": {
     "hooks": {
       "pre-commit": [
-        "lint-staged lint:fix prettier"
+        "lint-staged"
       ]
     }
   },
   "lint-staged": {
     "*.js": [
-      "prettier"
+      "prettier --write lint:fix --color"
     ]
   },
   "devDependencies": {

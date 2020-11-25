@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Error() {
   return (
@@ -6,5 +6,5 @@ export default function Error() {
       <h1>Car not found</h1>
       <Link href="/"><span>Go to main</span></Link>
     </>
-  )
+  );
 }
