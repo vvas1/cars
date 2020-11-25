@@ -30,9 +30,12 @@ export const useStyles = makeStyles({
     display: 'grid',
     gridArea: 'text',
     listStyle: 'none',
-    padding: '1rem 1rem 0',
+    padding: '0 1rem',
     alignSelf: 'stretch',
     transition: '0.3s ease-in-out',
+    '@media (max-width:1000px)': {
+      padding: '1rem 1rem 0',
+    },
   },
   deleteButton: {
     display: 'grid',

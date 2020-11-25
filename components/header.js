@@ -17,24 +17,26 @@ export default function Header() {
     setSearchText(e.target.value)
   }
 
-  return <div className={styles.header}>
-    <Link href={'/'}>
-      <h1>
-        <a>
-         CARS
-        </a>
-      </h1>
-    </Link>
-    <Paper style={ { display: 'flex', justifyContent: 'stretch' } } component={'form'}>
-      <InputBase type='text' value={searchText} onChange={changeHandler} id='searchfield' variant={'outlined'}>
-        <Button className={'search-button'}>
+  return (
+    <div className={styles.header}>
+      <Link href="/">
+        <h1>
+          <a>
+            CARS
+          </a>
+        </h1>
+      </Link>
+      <Paper style={{ display: 'flex', justifyContent: 'stretch' }} component="form">
+        <InputBase type="text" value={searchText} onChange={changeHandler} id="searchfield" variant="outlined">
+          <Button className="search-button">
+            <SearchIcon />
+          </Button>
+        </InputBase>
+        <Button type="submit" onClick={submitHandler}>
           <SearchIcon />
         </Button>
-      </InputBase>
-      <Button type={'submit'} onClick={submitHandler}>
-        <SearchIcon />
-      </Button>
-    </Paper>
-    <Button variant="outlined">Add a new car</Button>
-  </div>
+      </Paper>
+      <Button variant="outlined">Add a new car</Button>
+    </div>
+  )
 }

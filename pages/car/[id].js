@@ -3,10 +3,10 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import CarDetails from '../../components/car-details/car-details';
 import MainLayout from '../../components/main-layout';
 
-export default function OneCar(props) {
+export default function OneCar({ car }) {
   return (
     <MainLayout>
-      <CarDetails car={props.car}/>
+      <CarDetails car={car} />
     </MainLayout>
   );
 }

@@ -23,11 +23,11 @@ export default function DialogWindow({ open, handleClose, dialogText }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant={'outlined'} onClick={handleClose} color="primary">
-                    Disagree
+          <Button variant="outlined" onClick={handleClose} color="primary">
+            Disagree
           </Button>
-          <Button variant={'contained'} onClick={handleClose} color="primary" autoFocus>
-                    Agree
+          <Button variant="contained" onClick={handleClose} color="primary" autoFocus>
+            Agree
           </Button>
         </DialogActions>
       </Dialog>

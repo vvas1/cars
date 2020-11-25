@@ -1,88 +1,44 @@
 const { makeStyles } = require('@material-ui/core');
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: '0.5rem',
-    border: '0.2px solid black',
-    borderRadius: '4px',
-    paddingLeft: '0.5rem',
-    '@media (max-width:1000px)': {
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      paddingLeft: '0',
-    },
+    transition: '0.3s ease-in-out',
+    flexGrow: 1,
   },
-  photo: {
-    width: '270px',
-    transition: '0.2s',
-    '@media (max-width:1000px)': {
-      marginTop: '0.5rem',
-      transition: '0.5s',
-    },
-    '@media (max-width: 1000px)': {
-      width: 'auto',
-      height: '240px',
-      transition: '0.5s',
-    },
-
-    '@media (max-width: 500px)': {
-      width: '250px',
-      transition: '0.5s',
-    },
+  paper: {
+    padding: theme.spacing(2),
+    margin: 'auto',
+    height: '100%',
+    display: 'grid',
+    alignItems: 'stretch',
   },
+  image: (props) => ({
+    alignSelf: 'stretch',
+    background: `url(${props.photo}) no-repeat center`,
+    backgroundSize: 'cover',
+    '@media (max-width:959px)': {
+      height: '25vw',
+    },
+    '@media (max-width:500px)': {
+      height: '60vw',
+    },
+  }),
   textDiv: {
-    height: '220px',
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    '@media (max-width:1000px)': {
-      height: '100%',
-      justifyContent: 'space-evenly',
+    padding: '0 8px !important',
+    '@media (max-width:959px)': {
+
+      padding: '8px 0 !important',
     },
   },
   buttonDiv: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    padding: '0.5rem',
-    height: 'auto',
+    padding: '8px !important',
     '& button': {
+      padding: '0.5rem',
       backgroundColor: 'darkblue',
-      cursor: 'pointer',
       color: 'white',
     },
-    '& button:hover': { backgroundColor: 'darkblue', fontWeight: 900 },
-    '@media (max-width:1000px)': {
-      justifyContent: 'center',
-      marginBottom: '1rem',
+    '& button:hover': {
+      backgroundColor: 'blue',
     },
   },
-  carTitle: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0.5rem',
-    transition: '0.5s',
-    '@media (max-width:1000px)': {
-      flexDirection: 'column',
-      alignItems: 'center',
-      textAlign: 'center',
-    },
-  },
-  year: {
-    marginLeft: '0.5rem',
-    height: '100%',
-    '@media (max-width:1000px)': {
-      textAlign: 'center',
-    },
-  },
-  fontWeight900: {
-    fontWeight: 900,
-  },
-  price: {
-    fontWeight: 'bold',
-    fontSize: '1.2rem',
-    color: 'green',
-  },
-});
+}));

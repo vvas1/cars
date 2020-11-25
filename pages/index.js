@@ -8,7 +8,7 @@ import styles from '../styles/Home.module.css'
 
 export default function Home({ cars }) {
   const [filteredCars, setFilteredCars] = useState(cars)
-  const mappedCars = filteredCars.map((value, index) => <CarListItem key={index} id={value._id} brand={value.brand} model={value.model} photo={value.photo} price={value.price} year={value.year} />)
+  const mappedCars = filteredCars.map((value, index) => <CarListItem key={value._id} id={value._id} brand={value.brand} model={value.model} photo={value.photo} price={value.price} year={value.year} />)
 
   return (
     <MainLayout>
