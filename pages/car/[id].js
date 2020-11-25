@@ -1,7 +1,21 @@
 import ApolloClient, { gql } from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import PropTypes from 'prop-types';
 import CarDetails from '../../components/car-details/car-details';
 import MainLayout from '../../components/main-layout';
+
+OneCar.propTypes = {
+  car: PropTypes.objectOf({
+    brand: PropTypes.string.isRequired,
+    model: PropTypes.string.isRequired,
+    year: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    mileage: PropTypes.string.isRequired,
+    transmission: PropTypes.string.isRequired,
+    externalColor: PropTypes.string.isRequired,
+    photo: PropTypes.string.isRequired,
+  }).isRequired,
+}
 
 export default function OneCar({ car }) {
   return (

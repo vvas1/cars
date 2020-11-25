@@ -4,7 +4,17 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import { useStyles } from './car-list-item.styles';
+
+CarListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  brand: PropTypes.string.isRequired,
+  model: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
+  photo: PropTypes.string.isRequired,
+}
 
 export function CarListItem({
   id, brand, model, price, photo, year,

@@ -4,6 +4,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import PropTypes from 'prop-types';
+
+DialogWindow.propTypes = {
+  open: PropTypes.string.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  dialogText: PropTypes.string.isRequired,
+
+}
 
 const dialogTitle = 'Car deleting';
 
