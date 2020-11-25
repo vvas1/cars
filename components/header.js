@@ -3,6 +3,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import { useState } from 'react';
+import Link from 'next/link';
 import styles from '../styles/header.module.scss'
 
 export default function Header() {
@@ -17,7 +18,13 @@ export default function Header() {
   }
 
   return <div className={styles.header}>
-    <h1>CARS</h1>
+    <Link href={'/'}>
+      <h1>
+        <a>
+         CARS
+        </a>
+      </h1>
+    </Link>
     <Paper style={ { display: 'flex', justifyContent: 'stretch' } } component={'form'}>
       <InputBase type='text' value={searchText} onChange={changeHandler} id='searchfield' variant={'outlined'}>
         <Button className={'search-button'}>
@@ -27,9 +34,7 @@ export default function Header() {
       <Button type={'submit'} onClick={submitHandler}>
         <SearchIcon />
       </Button>
-
     </Paper>
-
     <Button variant="outlined">Add a new car</Button>
   </div>
 }
