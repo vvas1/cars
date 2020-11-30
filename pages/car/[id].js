@@ -3,6 +3,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import PropTypes from "prop-types";
 import CarDetails from "../../components/car-details/car-details";
 import MainLayout from "../../components/main-layout";
+import { getCarById, getCarsId } from "../../operations/car-operations";
 
 export default function OneCar({ car }) {
   return (
@@ -12,52 +13,19 @@ export default function OneCar({ car }) {
   );
 }
 export async function getStaticProps(ctx) {
-  const client = new ApolloClient({
-    uri: "http://localhost:3000/api/graphql",
-    cache: new InMemoryCache({ addTypename: false }),
-  });
-  const res = await client.query({
-    query: gql`
-            query($id: ID!) {
-                getCarById(id: $id) {                 
-                    brand
-                    model
-                    price
-                    year
-                    mileage
-                    transmission
-                    externalColor
-                    photo
-                }
-            }
-        `,
-    variables: { id: ctx.params.id },
-  });
+  const car = await getCarById(ctx.params.id);
 
   return {
     props: {
-      car: res.data.getCarById,
+      car,
     },
   };
 }
 export async function getStaticPaths() {
-  const client = new ApolloClient({
-    uri: "http://localhost:3000/api/graphql",
-  });
-  const res = await client.query({
-    query: gql`
-            query {
-                getAllCars {
-                    _id
-                    brand
-                    model
-                }
-            }
-        `,
-  });
+  const cars = await getCarsId();
 
   return {
-    paths: res.data.getAllCars.map((car) => ({
+    paths: cars.map((car) => ({
       params: {
         id: car._id,
       },

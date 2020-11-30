@@ -9,12 +9,12 @@ class CarsServices {
     return Cars.findById(id);
   }
 
-  async addCar(data) {
-    return await new Cars(data).save();
+  async addCar({ car }) {
+    return await new Cars(car).save();
   }
 
-  updateCar({ id, data }) {
-    return Cars.findByIdAndUpdate(id, data, { new: true });
+  updateCar({ id, car }) {
+    return Cars.findByIdAndUpdate(id, { $set: car }, { new: true });
   }
 
   deleteCar({ id }) {
