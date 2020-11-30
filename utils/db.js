@@ -8,7 +8,7 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
-   });
+    });
   } catch (err) {
     console.error(err);
   }
