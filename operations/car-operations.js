@@ -36,7 +36,8 @@ export const getCarById = async (id) => {
   const res = await client.query({
     query: gql`
             query($id: ID!) {
-                getCarById(id: $id) {                 
+                getCarById(id: $id) {         
+                    _id
                     brand
                     model
                     price

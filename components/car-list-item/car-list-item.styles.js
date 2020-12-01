@@ -26,7 +26,6 @@ export const useStyles = makeStyles((theme) => ({
   textDiv: {
     padding: "0 0 0 8px !important",
     "@media (max-width:959px)": {
-
       padding: "8px 0 !important",
     },
   },

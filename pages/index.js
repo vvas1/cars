@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import MainLayout from "../components/main-layout";
 import Filters from "../components/filters";
@@ -7,8 +6,7 @@ import styles from "../styles/Home.module.css";
 import { getAllCars, getCarsId } from "../operations/car-operations";
 
 export default function Home({ cars }) {
-  const [filteredCars, setFilteredCars] = useState(cars);
-  const mappedCars = filteredCars.map((value, index) => <CarListItem key={value._id} id={value._id} brand={value.brand} model={value.model} photo={value.photo} price={value.price} year={value.year} />);
+  const mappedCars = cars.map((value, index) => <CarListItem key={value._id} id={value._id} brand={value.brand} model={value.model} photo={value.photo} price={value.price} year={value.year} />);
 
   return (
     <MainLayout>

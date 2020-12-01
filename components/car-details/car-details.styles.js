@@ -34,7 +34,7 @@ export const useStyles = makeStyles({
     alignSelf: "stretch",
     transition: "0.3s ease-in-out",
     "@media (max-width:1000px)": {
-      padding: "1rem 1rem 0",
+      padding: "1rem 0 0",
     },
   },
   deleteButton: {
