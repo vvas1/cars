@@ -41,7 +41,7 @@ export const carMachine = Machine(
         ctx.handler = evt.handler;
         ctx.push = evt.push;
       },
-      hideDialog: (ctx, evt) => {
+      hideDialog: (ctx) => {
         ctx.open = false;
       },
       runHandler: (ctx) => {

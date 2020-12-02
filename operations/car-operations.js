@@ -51,7 +51,7 @@ export const getCarById = async (id) => {
         `,
     variables: { id },
   });
-  client.resetStore();
+
   return res.data.getCarById;
 };
 
@@ -66,7 +66,7 @@ export const addCar = async (car) => {
         `,
     variables: { car },
   });
-  client.resetStore();
+
   return res.data.addCar;
 };
 
@@ -81,6 +81,6 @@ export const deleteCar = async (id) => {
         `,
     variables: { id },
   });
-  client.resetStore();
+
   return res.data.deleteCar;
 };

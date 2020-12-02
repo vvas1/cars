@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 import { getAllCars, getCarsId } from "../operations/car-operations";
 
 export default function Home({ cars }) {
-  const mappedCars = cars.map((value, index) => <CarListItem key={value._id} id={value._id} brand={value.brand} model={value.model} photo={value.photo} price={value.price} year={value.year} />);
+  const mappedCars = cars.map((value) => <CarListItem key={value._id} id={value._id} brand={value.brand} model={value.model} photo={value.photo} price={value.price} year={value.year} />);
 
   return (
     <MainLayout>
