@@ -7,11 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix --color"
+    "lint:fix": "eslint . --fix --color",
+    "stylelint": "stylelint \"**/*.css\"",
+    "stylelint:fix": "stylelint \"**/*.css\" --fix"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@xstate/react": "^0.8.1",
     "apollo-boost": "^0.4.9",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-server-micro": "^2.19.0",
@@ -22,7 +25,10 @@
     "prop-types": "^15.7.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "sass": "^1.29.0"
+    "sass": "^1.29.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-standard": "^20.0.0",
+    "xstate": "^4.14.1"
   },
   "husky": {
     "hooks": {
@@ -33,8 +39,10 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write lint:fix --color"
-    ]
+      "prettier --write",
+      "lint:fix --color"
+    ],
+    "**/*.css": "stylelint"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.8.2",

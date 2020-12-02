@@ -4,30 +4,36 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import PropTypes from "prop-types";
+import { useContext } from "react";
+import { MainContext } from "../context/mainContext";
 
 const dialogTitle = "Car deleting";
 
-export default function DialogWindow({ open, handleClose, dialogText }) {
+export default function DialogWindow() {
+  const { state, send } = useContext(MainContext);
+
+  const agreeHandler = () => send("DELETE");
+  const disagreeHandler = () => send("CANCEL");
+
   return (
     <div>
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={state.context.open}
+        onClose={disagreeHandler}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {dialogText}
+            {state.context.text}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleClose} color="primary">
+          <Button variant="outlined" onClick={disagreeHandler} color="primary">
             Disagree
           </Button>
-          <Button variant="contained" onClick={handleClose} color="primary" autoFocus>
+          <Button variant="contained" onClick={agreeHandler} color="primary" autoFocus>
             Agree
           </Button>
         </DialogActions>
@@ -35,10 +41,3 @@ export default function DialogWindow({ open, handleClose, dialogText }) {
     </div>
   );
 }
-
-DialogWindow.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  dialogText: PropTypes.string.isRequired,
-
-};

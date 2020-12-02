@@ -21,9 +21,9 @@ export default function Header() {
     <div className={styles.header}>
       <Link href="/">
         <h1>
-          <a>
-            CARS
-          </a>
+
+          CARS
+
         </h1>
       </Link>
       <Paper style={{ display: "flex", justifyContent: "stretch" }} component="form">

@@ -1,5 +1,3 @@
-import ApolloClient, { gql } from "apollo-boost";
-import { InMemoryCache } from "apollo-cache-inmemory";
 import PropTypes from "prop-types";
 import CarDetails from "../../components/car-details/car-details";
 import MainLayout from "../../components/main-layout";

@@ -36,7 +36,8 @@ export const getCarById = async (id) => {
   const res = await client.query({
     query: gql`
             query($id: ID!) {
-                getCarById(id: $id) {                 
+                getCarById(id: $id) {         
+                    _id
                     brand
                     model
                     price
@@ -50,7 +51,7 @@ export const getCarById = async (id) => {
         `,
     variables: { id },
   });
-  client.resetStore();
+
   return res.data.getCarById;
 };
 
@@ -65,7 +66,7 @@ export const addCar = async (car) => {
         `,
     variables: { car },
   });
-  client.resetStore();
+
   return res.data.addCar;
 };
 
@@ -80,6 +81,6 @@ export const deleteCar = async (id) => {
         `,
     variables: { id },
   });
-  client.resetStore();
+
   return res.data.deleteCar;
 };
