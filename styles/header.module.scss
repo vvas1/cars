@@ -1,7 +1,7 @@
 .header {
   background-color: #280b66;
   color: white;
-  padding:0 5rem;
+  padding: 0 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,30 +12,30 @@
   font-size: 4rem;
   margin: 1rem;
 }
+
 .header div {
- width: 50vw;
+  width: 50vw;
   cursor: pointer;
 }
 
 .header div input {
-      padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .header div input fieldset {
-      border-color: white;
+  border-color: white;
+}
+
+.header button {
+  color: white;
+  border: 1px solid white;
+  margin: 1rem;
 }
 
 .header form button {
   color: black;
   border-left: 1px solid black;
   margin: 0;
-  }
-
-.header button {
-    color: white;
-    border: 1px solid white;
-    margin: 1rem;
-  }
-
+}
 
 
