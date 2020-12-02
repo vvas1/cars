@@ -4,9 +4,7 @@ import { FormControlLabel } from "@material-ui/core";
 import FormGroup from "@material-ui/core/FormGroup";
 import "../styles/filter.module.scss";
 import { useState } from "react";
-
-const brands = ["Audi", "BMW", "Volkswagen", "Mercedes-Benz"];
-const colors = ["white", "black", "blue", "grey"];
+import { years, colors, brands } from "../configs";
 
 export default function Filters() {
   const [brandFilters, setBrandFilters] = useState([]);
@@ -32,6 +30,18 @@ export default function Filters() {
   const mappedColors = colors.map((value) => (
     <FormGroup className="filter-list-item" key={value} aria-label={value}>
       <FormControlLabel
+        value={value}
+        control={<Checkbox color="primary" />}
+        label={value}
+        labelPlacement="end"
+      />
+    </FormGroup>
+  ));
+
+  const mappedYears = years.map((value) => (
+    <FormGroup className="filter-list-item" key={value} aria-label={value}>
+      <FormControlLabel
+        onChange={brandChangeHandler}
         value={value}
         control={<Checkbox color="primary" />}
         label={value}

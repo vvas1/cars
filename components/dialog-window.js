@@ -30,11 +30,11 @@ export default function DialogWindow() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={disagreeHandler} color="primary">
-            Disagree
+          <Button type="button" variant="outlined" onClick={disagreeHandler} color="primary">
+            no
           </Button>
-          <Button variant="contained" onClick={agreeHandler} color="primary" autoFocus>
-            Agree
+          <Button type="button" variant="contained" onClick={agreeHandler} color="secondary" autoFocus>
+            yes
           </Button>
         </DialogActions>
       </Dialog>

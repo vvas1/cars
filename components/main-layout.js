@@ -25,5 +25,6 @@ export default function MainLayout({ children }) {
 }
 
 MainLayout.propTypes = {
-  children: PropTypes.shape(PropTypes.elementType).isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+    .isRequired,
 };
