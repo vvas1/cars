@@ -21,9 +21,7 @@ export default function Header() {
     <div className={styles.header}>
       <Link href="/">
         <h1>
-
           CARS
-
         </h1>
       </Link>
       <Paper style={{ display: "flex", justifyContent: "stretch" }} component="form">
@@ -36,7 +34,7 @@ export default function Header() {
           <SearchIcon />
         </Button>
       </Paper>
-      <Button variant="outlined">Add a new car</Button>
+      <Link href="/car/add"><Button variant="outlined">Add a new car</Button></Link>
     </div>
   );
 }

@@ -1,33 +1,34 @@
 export const carType = `
 type Car {
-_id:ID
+  _id:ID
   brand: String
   model: String
-  year: Int
+  year: String
   firstOwner: Boolean
-  price: Int
-  mileage: Int
+  price: String
+  mileage: String
   photo: String
   engine: String
   transmission: String
   categories: [String]
   externalColor: String
   colorSimpleName: String
+    description:String
 }`;
 
 export const carInputType = `
 input CarInput {
-  _id:ID
   brand: String
   model: String
-  year: Int
+  year: String
   firstOwner: Boolean
-  price: Int
-  mileage: Int
+  price: String
+  mileage: String
   photo: String
   engine: String
   transmission: String
   categories: [String]
   externalColor: String
   colorSimpleName: String
+  description:String
 }`;

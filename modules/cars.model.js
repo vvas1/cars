@@ -15,6 +15,7 @@ const cars = new Schema({
   categories: [String],
   externalColor: String,
   colorSimpleName: String,
+  description: String,
 });
 
 export default mongoose.models && mongoose.models.cars

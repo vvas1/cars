@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import Router from "next/router";
+import Link from "next/link";
 import { useStyles } from "./car-details.styles";
 import { MainContext } from "../../context/mainContext";
 import { deleteCar } from "../../operations/car-operations";
@@ -42,8 +43,8 @@ export default function CarDetails({ car }) {
           {mappedCarDetails}
         </Typography>
         <Typography className={classes.deleteButton}>
-          <Button variant="outlined">edit</Button>
-          <Button onClick={deleteHandler} variant="contained">delete</Button>
+          <Link href="/car/edit"><Button variant="outlined">edit</Button></Link>
+          <Button type="button" onClick={deleteHandler} variant="contained">delete</Button>
         </Typography>
       </Typography>
     </Paper>
