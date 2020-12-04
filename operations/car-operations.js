@@ -46,6 +46,7 @@ export const getCarById = async (id) => {
                     transmission
                     externalColor
                     photo
+                    engine
                 }
             }
         `,

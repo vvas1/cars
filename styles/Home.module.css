@@ -11,16 +11,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkblue;
+  background-color: #280b66;
   color: white;
 }
 
 .cars {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(465px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
   grid-template-rows: auto;
-  grid-gap: 0.5rem;
+  grid-gap: 1rem;
   padding: 0.5rem;
   border: 0.2px solid black;
   border-radius: 4px;

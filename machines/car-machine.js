@@ -24,11 +24,11 @@ export const carMachine = Machine(
         on: {
           DELETE: {
             target: "hide",
-            actions: ["runHandler", "clearData", "hideDialog", "push"],
+            actions: ["runHandler", "hideDialog", "clearData", "push"],
           },
           CANCEL: {
             target: "hide",
-            actions: ["clearData", "hideDialog"],
+            actions: ["hideDialog", "clearData"],
           },
         },
       },

@@ -130,7 +130,7 @@ export function CarForm({ edit = false, car = {} }) {
             <Grid
               container
               sm={12}
-              lg={4}
+
               id="photo div"
               style={{
                 padding: "1rem",
@@ -148,7 +148,7 @@ export function CarForm({ edit = false, car = {} }) {
                 />
               ) : <Image style={{ width: "100%", height: "100%" }} />}
             </Grid>
-            <Grid container sm={12} lg={8} id="inputs div">
+            <Grid container sm={12}>
               <Typography>
                 <Grid container md={12} style={{ padding: "1rem" }}>
                   <Grid
@@ -351,7 +351,7 @@ export function CarForm({ edit = false, car = {} }) {
                         onChange={handleChange}
                         value={values.transmission}
                       >
-                        <option />
+
                         <option>Automatic</option>
                         <option>Manual</option>
                       </TextField>
