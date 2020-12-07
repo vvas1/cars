@@ -25,6 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn add all
+    - run: yarn dev
     - run: yarn build
     - run: yarn export
     - name: Deploy 🚀
