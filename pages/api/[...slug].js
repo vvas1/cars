@@ -15,7 +15,7 @@ const typeDefs = gql`
   }  
   type  Mutation {
     addCar(car:CarInput): Car
-    updateCar(id:ID!,car: CarInput):Car
+    updateCar(car: CarInput,id:ID!):Car
     deleteCar(id:ID!): Car
   }
 `;

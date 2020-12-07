@@ -1,16 +1,18 @@
 const { makeStyles } = require("@material-ui/core");
 
 export const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
+
   paper: {
     padding: theme.spacing(2),
     width: "60vw",
     margin: "auto",
     height: "100%",
-    display: "grid",
-    alignItems: "stretch",
+    "@media (max-width:1280px)": {
+      width: "80vw",
+    },
+    "@media (max-width:768px)": {
+      width: "100vw",
+    },
   },
   image: (props) => ({
     alignSelf: "stretch",
@@ -29,5 +31,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   inputError: {
     color: "red",
+  },
+  buttonDiv: {
+
+    display: "flex",
+    justifyContent: "space-between",
+    "& button": {
+      margin: "0 1rem",
+    },
   },
 }));

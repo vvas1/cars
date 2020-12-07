@@ -1,10 +1,10 @@
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { Button, TextField, Typography } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Image } from "@material-ui/icons";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import { useStyles } from "./car-form.styles";
@@ -12,7 +12,7 @@ import { carValidationMessages } from "../../configs/validation";
 import { carRegExp } from "../../configs/regexpSchemas";
 import { colors, years } from "../../configs";
 import { MainContext } from "../../context/mainContext";
-import { addCar } from "../../operations/car-operations";
+import { addCar, updateCar } from "../../operations/car-operations";
 
 const {
   MIN_LENGTH_MESSAGE,
@@ -22,15 +22,22 @@ const {
 } = carValidationMessages;
 
 export function CarForm({ edit = false, car = {} }) {
-  const [buttonDisabled, setButtonDisabled] = useState(false);
   const classes = useStyles();
   const { send } = useContext(MainContext);
 
-  const handler = (car, fn) => {
+  const addCarhandler = (car) => {
     send({
       type: "SHOW",
-      text: "Are you sure you want to delete the car?",
-      handler: () => fn(car),
+      text: "Are you sure you want to add the car?",
+      handler: () => addCar(car),
+      push: () => Router.push("/"),
+    });
+  };
+  const updateCarhandler = (data) => {
+    send({
+      type: "SHOW",
+      text: "Are you sure you want to update the car data?",
+      handler: () => updateCar(data),
       push: () => Router.push("/"),
     });
   };
@@ -76,7 +83,7 @@ export function CarForm({ edit = false, car = {} }) {
 
     description: Yup.string()
       .min(2, MIN_LENGTH_MESSAGE)
-      .max(100, MAX_LENGTH_MESSAGE)
+      .max(200, MAX_LENGTH_MESSAGE)
       .required(VALIDATION_ERROR),
 
     externalColor: Yup.string()
@@ -114,23 +121,20 @@ export function CarForm({ edit = false, car = {} }) {
     },
     onSubmit: (data) => {
       if (edit) {
-        handler(data);
-        setButtonDisabled(true);
+        updateCarhandler({ id: car._id, car: data });
       }
-      handler(data, addCar);
-      setButtonDisabled(true);
+      addCarhandler(data);
     },
   });
 
   return (
-    <div className={classes.root}>
+    <Paper elevation={10}>
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper}>
-          <Grid id="main grid" container spacing={2}>
+          <Grid container spacing={2}>
             <Grid
               container
-              sm={12}
-
+              md={4}
               id="photo div"
               style={{
                 padding: "1rem",
@@ -148,262 +152,261 @@ export function CarForm({ edit = false, car = {} }) {
                 />
               ) : <Image style={{ width: "100%", height: "100%" }} />}
             </Grid>
-            <Grid container sm={12}>
-              <Typography>
-                <Grid container md={12} style={{ padding: "1rem" }}>
-                  <Grid
-                    xs={12}
-                    sm={12}
-                    md={12}
-                    style={{ padding: "1rem 1rem 0" }}
-                  >
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        error={touched.photo && errors.photo}
-                        name="photo"
-                        label="Photo"
-                        placeholder="Photo"
-                        size="small"
-                        fullWidth
-                        value={values.photo}
-                        variant="outlined"
-                        onChange={handleChange}
-                      />
-                      {touched.photo && errors.photo && (
-                        <div className={classes.inputError}>{errors.photo}</div>
-                      )}
-                    </div>
-                  </Grid>
-                  <Grid
-                    item
-                    style={{ padding: "0 1rem" }}
-                    xs={12}
-                    sm={12}
-                    md={6}
-                  >
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="brand"
-                        error={touched.brand && errors.brand}
-                        placeholder="Brand"
-                        label="Brand"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.brand}
-                      />
-                      {touched.brand && errors.brand && (
-                        <div className={classes.inputError}>{errors.brand}</div>
-                      )}
-                    </div>
+            <Grid container md={8}>
+              <Grid container md={12} style={{ padding: "1rem" }}>
+                <Grid
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  style={{ padding: "1rem 1rem 0" }}
+                >
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      error={touched.photo && errors.photo}
+                      name="photo"
+                      label="Photo"
+                      placeholder="Photo"
+                      size="small"
+                      fullWidth
+                      value={values.photo}
+                      variant="outlined"
+                      onChange={handleChange}
+                    />
+                    {touched.photo && errors.photo && (
+                      <div className={classes.inputError}>{errors.photo}</div>
+                    )}
+                  </div>
+                </Grid>
+                <Grid
+                  item
+                  style={{ padding: "0 1rem" }}
+                  xs={12}
+                  sm={12}
+                  md={6}
+                >
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="brand"
+                      error={touched.brand && errors.brand}
+                      placeholder="Brand"
+                      label="Brand"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.brand}
+                    />
+                    {touched.brand && errors.brand && (
+                      <div className={classes.inputError}>{errors.brand}</div>
+                    )}
+                  </div>
 
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="model"
-                        error={touched.model && errors.model}
-                        placeholder="Model"
-                        label="Model"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.model}
-                      />
-                      {touched.model && errors.model && (
-                        <div className={classes.inputError}>{errors.model}</div>
-                      )}
-                    </div>
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="price"
-                        error={touched.price && errors.price}
-                        placeholder="Price"
-                        label="Price"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.price}
-                      />
-                      {touched.price && errors.price && (
-                        <div className={classes.inputError}>{errors.price}</div>
-                      )}
-                    </div>
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="engine"
-                        error={touched.engine && errors.engine}
-                        placeholder="Engine"
-                        label="Engine"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.engine}
-                      />
-                      {touched.engine && errors.engine && (
-                        <div className={classes.inputError}>
-                          {errors.engine}
-                        </div>
-                      )}
-                    </div>
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="externalColor"
-                        error={touched.externalColor && errors.externalColor}
-                        placeholder="External color"
-                        label="External color"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.externalColor}
-                      />
-                      {touched.externalColor && errors.externalColor && (
-                        <div className={classes.inputError}>
-                          {errors.externalColor}
-                        </div>
-                      )}
-                    </div>
-                  </Grid>
-                  <Grid
-                    item
-                    style={{ padding: "0 1rem" }}
-                    xs={12}
-                    sm={12}
-                    md={6}
-                  >
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="mileage"
-                        error={touched.mileage && errors.mileage}
-                        placeholder="Mileage"
-                        label="Mileage"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.mileage}
-                      />
-                      {touched.mileage && errors.mileage && (
-                        <div className={classes.inputError}>
-                          {errors.mileage}
-                        </div>
-                      )}
-                    </div>
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="model"
+                      error={touched.model && errors.model}
+                      placeholder="Model"
+                      label="Model"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.model}
+                    />
+                    {touched.model && errors.model && (
+                      <div className={classes.inputError}>{errors.model}</div>
+                    )}
+                  </div>
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="price"
+                      error={touched.price && errors.price}
+                      placeholder="Price"
+                      label="Price"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.price}
+                    />
+                    {touched.price && errors.price && (
+                      <div className={classes.inputError}>{errors.price}</div>
+                    )}
+                  </div>
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="engine"
+                      error={touched.engine && errors.engine}
+                      placeholder="Engine"
+                      label="Engine"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.engine}
+                    />
+                    {touched.engine && errors.engine && (
+                      <div className={classes.inputError}>
+                        {errors.engine}
+                      </div>
+                    )}
+                  </div>
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="externalColor"
+                      error={touched.externalColor && errors.externalColor}
+                      placeholder="External color"
+                      label="External color"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.externalColor}
+                    />
+                    {touched.externalColor && errors.externalColor && (
+                      <div className={classes.inputError}>
+                        {errors.externalColor}
+                      </div>
+                    )}
+                  </div>
+                </Grid>
+                <Grid
+                  item
+                  style={{ padding: "0 1rem" }}
+                  xs={12}
+                  sm={12}
+                  md={6}
+                >
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="mileage"
+                      error={touched.mileage && errors.mileage}
+                      placeholder="Mileage"
+                      label="Mileage"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.mileage}
+                    />
+                    {touched.mileage && errors.mileage && (
+                      <div className={classes.inputError}>
+                        {errors.mileage}
+                      </div>
+                    )}
+                  </div>
 
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="colorSimpleName"
-                        error={
-                          touched.colorSimpleName && errors.colorSimpleName
-                        }
-                        placeholder="Simple color"
-                        select
-                        label="Simple color"
-                        SelectProps={{ native: true }}
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.colorSimpleName}
-                      >
-                        {mappedColors}
-                      </TextField>
-                      {touched.colorSimpleName && errors.colorSimpleName && (
-                        <div className={classes.inputError}>
-                          {errors.colorSimpleName}
-                        </div>
-                      )}
-                    </div>
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="year"
-                        error={touched.year && errors.year}
-                        placeholder="choose a year"
-                        label="year"
-                        select
-                        SelectProps={{ native: true }}
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.year}
-                      >
-                        {mappedYears}
-                      </TextField>
-                      {touched.year && errors.year && (
-                        <div className={classes.inputError}>{errors.year}</div>
-                      )}
-                    </div>
-                    <div className={classes.inputMargin}>
-                      <TextField
-                        name="transmission"
-                        error={touched.transmission && errors.transmission}
-                        placeholder="choose a transmission"
-                        label="transmission"
-                        select
-                        SelectProps={{ native: true }}
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChange}
-                        value={values.transmission}
-                      >
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="colorSimpleName"
+                      error={
+                        touched.colorSimpleName && errors.colorSimpleName
+                      }
+                      placeholder="Simple color"
+                      select
+                      label="Simple color"
+                      SelectProps={{ native: true }}
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.colorSimpleName}
+                    >
+                      {mappedColors}
+                    </TextField>
+                    {touched.colorSimpleName && errors.colorSimpleName && (
+                      <div className={classes.inputError}>
+                        {errors.colorSimpleName}
+                      </div>
+                    )}
+                  </div>
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="year"
+                      error={touched.year && errors.year}
+                      placeholder="choose a year"
+                      label="year"
+                      select
+                      SelectProps={{ native: true }}
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.year}
+                    >
+                      {mappedYears}
+                    </TextField>
+                    {touched.year && errors.year && (
+                      <div className={classes.inputError}>{errors.year}</div>
+                    )}
+                  </div>
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="transmission"
+                      error={touched.transmission && errors.transmission}
+                      placeholder="choose a transmission"
+                      label="transmission"
+                      select
+                      SelectProps={{ native: true }}
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.transmission}
+                    >
 
-                        <option>Automatic</option>
-                        <option>Manual</option>
-                      </TextField>
-                      {touched.transmission && errors.transmission && (
-                        <div className={classes.inputError}>
-                          {errors.transmission}
-                        </div>
-                      )}
-                    </div>
-                  </Grid>
-                  <Grid
-                    xs={12}
-                    sm={12}
-                    md={12}
-                    item
-                    style={{ padding: "0 1rem" }}
-                  >
-                    <div style={{ minHeight: "70px" }}>
-                      <TextField
-                        name="description"
-                        error={touched.description && errors.description}
-                        multiline
-                        placeholder="description"
-                        label="description"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        value={values.description}
-                        onChange={handleChange}
-                      />
-                      {touched.description && errors.description && (
-                        <div className={classes.inputError}>
-                          {errors.description}
-                        </div>
-                      )}
-                    </div>
-                  </Grid>
+                      <option>Automatic</option>
+                      <option>Manual</option>
+                    </TextField>
+                    {touched.transmission && errors.transmission && (
+                      <div className={classes.inputError}>
+                        {errors.transmission}
+                      </div>
+                    )}
+                  </div>
+                </Grid>
+                <Grid
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  item
+                  style={{ padding: "0 1rem" }}
+                >
+                  <div style={{ minHeight: "70px" }}>
+                    <TextField
+                      name="description"
+                      error={touched.description && errors.description}
+                      multiline
+                      placeholder="description"
+                      label="description"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      value={values.description}
+                      onChange={handleChange}
+                    />
+                    {touched.description && errors.description && (
+                      <div className={classes.inputError}>
+                        {errors.description}
+                      </div>
+                    )}
+                  </div>
+                </Grid>
+                <div className={classes.buttonDiv}>
                   <Link href="/"><Button type="button" variant="outlined" color="secondary">Back to main</Button></Link>
                   <Button
-                    disabled={buttonDisabled}
                     type="submit"
                     variant="contained"
                     color="primary"
                   >
                     Create car
                   </Button>
-                </Grid>
-              </Typography>
+                </div>
+              </Grid>
             </Grid>
           </Grid>
         </Paper>
       </form>
-    </div>
+    </Paper>
   );
 }

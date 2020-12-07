@@ -13,7 +13,7 @@ export function CarListItem({
   const classes = useStyles({ photo });
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper elevation={5} className={classes.paper}>
         <Grid container spacing={2}>
           <Grid xs={12} sm={12} md={5} className={classes.image} item />
           <Grid

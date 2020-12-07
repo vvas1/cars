@@ -7,17 +7,15 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "start": "next start",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix --color",
-    "stylelint": "stylelint \"**/*.css\"",
-    "stylelint:fix": "stylelint --fix"
+    "lint:fix": "eslint --fix --color .",
+    "stylelint": "stylelint .",
+    "stylelint:fix": "stylelint --fix ."
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
     "@xstate/react": "^0.8.1",
-    "all": "^0.0.0",
     "apollo-boost": "^0.4.9",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-server-micro": "^2.19.0",
@@ -37,17 +35,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": [
-        "lint-staged"
-      ]
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write",
+      "prettier --write .",
       "lint:fix --color"
-    ],
-    "**/*.css": "stylelint"
+    ]
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.8.2",
@@ -60,6 +55,7 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.3.0",
-    "lint-staged": "^10.5.1"
+    "lint-staged": "^10.5.1",
+    "prettier": "^2.2.1"
   }
 }
