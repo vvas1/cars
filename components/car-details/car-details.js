@@ -36,14 +36,14 @@ export default function CarDetails({ car }) {
     </li>
   ));
   return (
-    <Paper className={classes.root}>
+    <Paper elevation={10} className={classes.root}>
       <Typography className={classes.image}><img alt={`${carDetails.brand} ${carDetails.model} ${carDetails.year}`} className={classes.img} src={photo} /></Typography>
-      <Typography className={classes.text}>
+      <Typography component="div" className={classes.text}>
         <Typography>
           {mappedCarDetails}
         </Typography>
         <Typography className={classes.deleteButton}>
-          <Link href="/car/edit"><Button variant="outlined">edit</Button></Link>
+          <Link href={`/car/edit/${carDetails._id}`}><Button variant="outlined">edit</Button></Link>
           <Button type="button" onClick={deleteHandler} variant="contained">delete</Button>
         </Typography>
       </Typography>
@@ -56,9 +56,9 @@ CarDetails.propTypes = {
     _id: PropTypes.string.isRequired,
     brand: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    mileage: PropTypes.number.isRequired,
+    year: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    mileage: PropTypes.string.isRequired,
     transmission: PropTypes.string.isRequired,
     externalColor: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,

@@ -4,9 +4,12 @@ export const useStyles = makeStyles({
   root: {
     margin: "1rem",
     display: "grid",
-    transition: "0.3s ease-in-out",
     padding: "0.5rem",
+    width: "60vw",
     gridTemplateAreas: "\"image text\"",
+    "@media (max-width:1280px)": {
+      width: "100%",
+    },
     "@media (max-width:1000px)": {
       gridTemplateAreas: "\"image\" \"text\"",
     },
@@ -17,14 +20,9 @@ export const useStyles = makeStyles({
     display: "grid",
   },
   img: {
-    height: "30vw",
+    height: "auto",
     transition: "0.3s ease-in-out",
-    "@media (max-width:1000px)": {
-      height: "50vw",
-    },
-    "@media (max-width:500px)": {
-      height: "60vw",
-    },
+    width: "100%",
   },
   text: {
     display: "grid",

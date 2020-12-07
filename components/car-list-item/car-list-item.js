@@ -13,7 +13,7 @@ export function CarListItem({
   const classes = useStyles({ photo });
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper elevation={5} className={classes.paper}>
         <Grid container spacing={2}>
           <Grid xs={12} sm={12} md={5} className={classes.image} item />
           <Grid
@@ -27,17 +27,11 @@ export function CarListItem({
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  brand:
-                  {" "}
                   {brand}
-                </Typography>
-                <Typography gutterBottom>
-                  model:
+                  {" "}
                   {model}
                 </Typography>
                 <Typography style={{ cursor: "pointer" }}>
-                  year:
-                  {" "}
                   {year}
                 </Typography>
               </Grid>
@@ -48,7 +42,7 @@ export function CarListItem({
               </Grid>
             </Grid>
             <Grid item>
-              <Typography gutterBottom>
+              <Typography component="h5" gutterBottom>
                 {`$ ${price}`}
               </Typography>
             </Grid>
@@ -63,7 +57,7 @@ CarListItem.propTypes = {
   id: PropTypes.string.isRequired,
   brand: PropTypes.string.isRequired,
   model: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  year: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
   photo: PropTypes.string.isRequired,
 };

@@ -4,10 +4,13 @@ import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "../styles/header.module.scss";
 
 export default function Header() {
   const [searchText, setSearchText] = useState("");
+  const router = useRouter();
+
   const submitHandler = (e) => {
     e.preventDefault();
     setSearchText("");
@@ -34,7 +37,13 @@ export default function Header() {
           <SearchIcon />
         </Button>
       </Paper>
-      <Link href="/car/add"><Button variant="outlined">Add a new car</Button></Link>
+      {router.route === "/car/add" ? (
+        ""
+      ) : (
+        <Link href="/car/add">
+          <Button variant="outlined">Add a new car</Button>
+        </Link>
+      )}
     </div>
   );
 }

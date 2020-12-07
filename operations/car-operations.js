@@ -46,6 +46,9 @@ export const getCarById = async (id) => {
                     transmission
                     externalColor
                     photo
+                    engine
+                   colorSimpleName
+                    description
                 }
             }
         `,
@@ -70,6 +73,22 @@ export const addCar = async (car) => {
   return res.data.addCar;
 };
 
+export const updateCar = async (data) => {
+  console.log(data);
+
+  const res = await client.mutate({
+    mutation: gql`
+        mutation($id:ID!, $car:CarInput!) {
+            updateCar(id:$id, car: $car) {
+                _id
+            }
+        }
+    `,
+    variables: data,
+  });
+
+  return res.data.updateCar;
+};
 export const deleteCar = async (id) => {
   const res = await client.mutate({
     mutation: gql`
