@@ -1,10 +1,10 @@
-import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import Router from "next/router";
 import Link from "next/link";
+import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./car-details.styles";
 import { MainContext } from "../../context/mainContext";
 import { deleteCar } from "../../operations/car-operations";
@@ -35,6 +35,7 @@ export default function CarDetails({ car }) {
       </Typography>
     </li>
   ));
+
   return (
     <Paper elevation={10} className={classes.root}>
       <Typography className={classes.image}><img alt={`${carDetails.brand} ${carDetails.model} ${carDetails.year}`} className={classes.img} src={photo} /></Typography>
