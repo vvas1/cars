@@ -5,10 +5,10 @@ const { Schema } = mongoose;
 const cars = new Schema({
   brand: String,
   model: String,
-  year: Number,
+  year: String,
   firstOwner: Boolean,
-  price: Number,
-  mileage: Number,
+  price: String,
+  mileage: String,
   photo: String,
   engine: String,
   transmission: String,

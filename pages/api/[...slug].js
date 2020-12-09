@@ -10,13 +10,21 @@ const typeDefs = gql`
   ${carInputType}
   
   type Query {
-   getAllCars: [Car] 
-    getCarById(id:ID!): Car
+   getAllCars: [Car]
+      getCarById(id:ID!): Car
+   getFilteredCars(filter: FilterInput!): [Car]
   }  
   type  Mutation {
     addCar(car:CarInput): Car
     updateCar(car: CarInput,id:ID!):Car
     deleteCar(id:ID!): Car
+  }
+  input FilterInput {
+      brand: [String]
+      color: [String]
+      model: [String]
+      year: [String]
+      searchText: String
   }
 `;
 

@@ -11,7 +11,8 @@ export const getAllCars = async () => {
                     model
                     photo
                     price
-                    year                  
+                    year
+                    mileage
                 }
             }
         `,
@@ -74,8 +75,6 @@ export const addCar = async (car) => {
 };
 
 export const updateCar = async (data) => {
-  console.log(data);
-
   const res = await client.mutate({
     mutation: gql`
         mutation($id:ID!, $car:CarInput!) {
@@ -102,4 +101,23 @@ export const deleteCar = async (id) => {
   });
 
   return res.data.deleteCar;
+};
+
+export const getFilteredCars = async (filter) => {
+  const res = await client.query({
+    query: gql`
+        query($filter: FilterInput!) {
+            getFilteredCars(filter: $filter) {
+                _id
+                brand
+                model
+                photo
+                price
+                year
+            }
+        }
+    `,
+    variables: { filter },
+  });
+  return res.data.getFilteredCars;
 };

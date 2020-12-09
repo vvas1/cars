@@ -5,6 +5,12 @@ export const carMachine = Machine(
     id: "global",
     initial: "hide",
     context: {
+      filter: {
+        brand: [],
+        color: [],
+        year: [],
+        searchText: "",
+      },
       open: false,
       text: "",
       handler: () => {},
@@ -17,6 +23,26 @@ export const carMachine = Machine(
           SHOW: {
             target: "show",
             actions: ["showDialog"],
+          },
+          ADD_BRAND: {
+            target: "hide",
+            actions: ["addBrandToStore"],
+          },
+          ADD_COLOR: {
+            target: "hide",
+            actions: ["addColorToStore"],
+          },
+          ADD_YEAR: {
+            target: "hide",
+            actions: ["addYearToStore"],
+          },
+          ADD_SEARCH_TEXT: {
+            target: "hide",
+            actions: ["addSearchText"],
+          },
+          CLEAR_FILTER: {
+            target: "hide",
+            actions: ["clearFilter"],
           },
         },
       },
@@ -33,7 +59,8 @@ export const carMachine = Machine(
         },
       },
     },
-  }, {
+  },
+  {
     actions: {
       showDialog: (ctx, evt) => {
         ctx.text = evt.text;
@@ -51,7 +78,20 @@ export const carMachine = Machine(
         ctx.text = "";
         ctx.handler = () => {};
       },
+      clearFilter: (ctx) => {
+        console.log(ctx);
+        ctx.filter = {
+          brand: [],
+          color: [],
+          year: [],
+        };
+      },
       push: (ctx) => ctx.push(),
+      addBrandToStore: (ctx, evt) => (ctx.filter.brand = evt.brand),
+      addColorToStore: (ctx, evt) => (ctx.filter.color = evt.color),
+      addYearToStore: (ctx, evt) => (ctx.filter.year = evt.year),
+
+      addSearchText: (ctx, evt) => (ctx.filter.searchText = evt.searchText),
     },
   },
 );

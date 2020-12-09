@@ -5,9 +5,11 @@ import { useContext } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
+import { CircularProgress } from "@material-ui/core";
 import { useStyles } from "./car-details.styles";
 import { MainContext } from "../../context/mainContext";
 import { deleteCar } from "../../operations/car-operations";
+import { loading } from "../Loading";
 
 export default function CarDetails({ car }) {
   const { photo, ...carDetails } = car;
@@ -36,7 +38,7 @@ export default function CarDetails({ car }) {
     </li>
   ));
 
-  return (
+  return (loading() ? <CircularProgress /> : (
     <Paper elevation={10} className={classes.root}>
       <Typography className={classes.image}><img alt={`${carDetails.brand} ${carDetails.model} ${carDetails.year}`} className={classes.img} src={photo} /></Typography>
       <Typography component="div" className={classes.text}>
@@ -49,6 +51,8 @@ export default function CarDetails({ car }) {
         </Typography>
       </Typography>
     </Paper>
+  )
+
   );
 }
 

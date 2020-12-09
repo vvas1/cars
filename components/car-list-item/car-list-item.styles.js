@@ -8,19 +8,10 @@ export const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     margin: "auto",
-
+    height: "100%",
     display: "grid",
     alignItems: "stretch",
 
-    "@media (max-width:959px)": {
-      height: "17vw",
-    },
-    "@media (min-width:768px)": {
-      height: "22vw",
-    },
-    "@media (min-width:320px)": {
-      height: "100%",
-    },
   },
   image: (props) => ({
     alignSelf: "stretch",

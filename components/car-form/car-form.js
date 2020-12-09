@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { Button, TextField } from "@material-ui/core";
+import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Image } from "@material-ui/icons";
@@ -13,6 +13,7 @@ import { carRegExp } from "../../configs/regexpSchemas";
 import { colors, years } from "../../configs";
 import { MainContext } from "../../context/mainContext";
 import { addCar, updateCar } from "../../operations/car-operations";
+import { loading } from "../Loading";
 
 const {
   MIN_LENGTH_MESSAGE,
@@ -127,7 +128,7 @@ export function CarForm({ edit = false, car = {} }) {
     },
   });
 
-  return (
+  return (loading() ? <CircularProgress /> : (
     <Paper elevation={10}>
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper}>
@@ -408,5 +409,6 @@ export function CarForm({ edit = false, car = {} }) {
         </Paper>
       </form>
     </Paper>
+  )
   );
 }

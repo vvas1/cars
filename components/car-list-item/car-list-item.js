@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { useStyles } from "./car-list-item.styles";
 
 export function CarListItem({
-  id, brand, model, price, year, photo,
+  _id, brand, model, price, year, photo, mileage,
 }) {
   const classes = useStyles({ photo });
   return (
@@ -31,12 +31,15 @@ export function CarListItem({
                   {" "}
                   {model}
                 </Typography>
-                <Typography style={{ cursor: "pointer" }}>
+                <Typography>
                   {year}
+                </Typography>
+                <Typography>
+                  {mileage}
                 </Typography>
               </Grid>
               <Grid item className={classes.buttonDiv}>
-                <Link href={`/car/${id}`}>
+                <Link href={`/car/${_id}`}>
                   <Button>show more</Button>
                 </Link>
               </Grid>
@@ -54,10 +57,11 @@ export function CarListItem({
 }
 
 CarListItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
   brand: PropTypes.string.isRequired,
   model: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
   photo: PropTypes.string.isRequired,
+  mileage: PropTypes.string.isRequired,
 };
