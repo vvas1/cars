@@ -36,9 +36,9 @@ OneCar.propTypes = {
   car: PropTypes.shape({
     brand: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    mileage: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    mileage: PropTypes.number.isRequired,
     transmission: PropTypes.string.isRequired,
     externalColor: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,

@@ -156,7 +156,6 @@ export function CarForm({ edit = false, car = {} }) {
             <Grid container md={8}>
               <Grid container md={12} style={{ padding: "1rem" }}>
                 <Grid
-                  xs={12}
                   sm={12}
                   md={12}
                   style={{ padding: "1rem 1rem 0" }}

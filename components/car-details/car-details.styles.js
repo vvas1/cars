@@ -21,6 +21,7 @@ export const useStyles = makeStyles({
     transition: "0.5s",
     gridArea: "image",
     display: "grid",
+    justifyContent: "center",
   },
   img: {
     maxHeigh: "100%",
@@ -33,7 +34,10 @@ export const useStyles = makeStyles({
     padding: "0 1rem",
     alignSelf: "stretch",
     transition: "0.3s ease-in-out",
-    maxWidth: "30vw",
+    maxWidth: "20vw",
+    "@media (max-width:1280px)": {
+      maxWidth: "30vw",
+    },
     "@media (max-width:1000px)": {
       padding: "1rem 0 0",
       maxWidth: "100%",

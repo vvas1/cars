@@ -1,8 +1,10 @@
 import Cars from "./cars.model";
 
 class CarsServices {
-  getAllCars() {
-    return Cars.find();
+  async getAllCars() {
+    const cars = await Cars.find().limit(15).sort({ year: -1 });
+    const count = await Cars.countDocuments();
+    return { cars, count };
   }
 
   getCarById({ id }) {
@@ -29,25 +31,40 @@ class CarsServices {
   configureFilter(data) {
     const filter = {};
     const {
-      brand, model, year, color, searchText,
+      brand, model, minYear = 1990, maxYear = 2022, minPrice = 0, maxPrice = 222222, color, searchText,
     } = data;
+
     if (brand) {
-      filter.brand = { $in: brand.map((value) => new RegExp(value, "i")) };
+      filter.brand = new RegExp(brand, "i");
     }
+
     if (model) {
-      filter.model = { $in: model.map((value) => new RegExp(value, "i")) };
+      filter.model = new RegExp(model, "i");
     }
-    if (year) {
-      filter.year = { $in: year };
+
+    if (minPrice) {
+      filter.price = { $gte: +minPrice, $lte: minPrice };
     }
+
+    if (maxPrice) {
+      filter.price = { $gte: minPrice, $lte: +maxPrice };
+    }
+
+    if (minYear) {
+      filter.year = { $gte: +minYear, $lte: +maxYear };
+    }
+
+    if (maxYear) {
+      filter.year = { $gte: +minYear, $lte: +maxYear };
+    }
+
     if (color) {
-      filter.colorSimpleName = {
-        $in: color.map((value) => new RegExp(value, "i")),
-      };
+      filter.colorSimpleName = new RegExp(color, "i");
     }
     if (searchText) {
       filter.description = new RegExp(searchText, "i");
     }
+
     return filter;
   }
 }

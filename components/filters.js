@@ -1,95 +1,59 @@
-import Checkbox from "@material-ui/core/Checkbox";
-import List from "@material-ui/core/List";
-import { FormControlLabel } from "@material-ui/core";
-import FormGroup from "@material-ui/core/FormGroup";
-import { useCallback, useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import classes from "../styles/filter.module.css";
-import { colors, brands, years } from "../configs";
+import {
+  colors, brands, years, prices,
+} from "../configs";
 import { MainContext } from "../context/mainContext";
+import Facet from "./facet";
 
 export default function Filters() {
-  const {
-    state,
-    send,
-  } = useContext(MainContext);
+  const { state, send } = useContext(MainContext);
   const router = useRouter();
-
-  const fetchData = useCallback(() => {
-    router.push({
-      pathname: "/search",
-      query: state.context.filter,
-    });
-  }, [state.context.filter]);
-
-  const changeHandler = (e, item) => {
-    if (e.target.checked) {
-      send({
-        type: `ADD_${item.toUpperCase()}`,
-        [item]: [...state.context.filter[item], e.target.value],
-      });
-      fetchData();
-      return;
+  useEffect(() => {
+    if (router.route !== "/") {
+      if (
+        (!state.context.filter.brand
+          && router.query.brand
+          && router.query.brand !== state.context.filter.brand)
+        || (!state.context.filter.color
+          && router.query.color
+          && router.query.color !== state.context.filter.color)
+        || (!state.context.filter.minYear
+          && router.query.minYear
+          && router.query.minYear !== state.context.filter.minYear)
+        || (!state.context.filter.maxYear
+        && router.query.maxYear
+        && router.query.maxYear !== state.context.filter.maxYear)
+        || (!state.context.filter.minPrice
+        && router.query.minPrice
+        && router.query.minPrice !== state.context.filter.minPrice)
+        || (!state.context.filter.maxPrice
+        && router.query.maxPrice
+        && router.query.maxPrice !== state.context.filter.maxPrice)
+      ) {
+        send({
+          type: "SET_FILTERS",
+          filter: {
+            brand: router.query.brand,
+            color: router.query.color,
+            minYear: router.query.minYear,
+            maxYear: router.query.maxYear,
+            minPrice: router.query.minPrice,
+            maxPrice: router.query.maxPrice,
+          },
+        });
+      }
     }
-
-    send({
-      type: `ADD_${item.toUpperCase()}`,
-      [item]: state.context.filter[item].filter(
-        (value) => value !== e.target.value,
-      ),
-    });
-    fetchData();
-  };
-
-  const mappedBrands = brands.map((value) => (
-    <FormGroup className={state.context.filter.brand.includes(value) ? classes.filter_list_item_checked : classes.filter_list_item} key={value} aria-label={value}>
-      <FormControlLabel
-        onChange={(e) => changeHandler(e, "brand")}
-        value={value}
-        checked={state.context.filter.brand.includes(value)}
-        control={<Checkbox color="primary" />}
-        label={value}
-        labelPlacement="end"
-      />
-    </FormGroup>
-  ));
-  const mappedColors = colors.map((value) => (
-    <FormGroup key={value} aria-label={value} className={state.context.filter.color.includes(value) ? classes.filter_list_item_checked : classes.filter_list_item}>
-      <FormControlLabel
-        onChange={(e) => changeHandler(e, "color")}
-        value={value}
-        checked={state.context.filter.color.includes(value)}
-        control={<Checkbox color="primary" />}
-        label={value}
-        labelPlacement="end"
-      />
-    </FormGroup>
-  ));
-
-  const mappedYears = years.map((value) => (
-    <FormGroup key={value} aria-label={value} className={state.context.filter.year.includes(`${value}`) ? classes.filter_list_item_checked : classes.filter_list_item}>
-      <FormControlLabel
-        onChange={(e) => changeHandler(e, "year")}
-        value={value}
-        checked={state.context.filter.year.includes(`${value}`)}
-        control={<Checkbox color="primary" />}
-        label={value}
-        labelPlacement="end"
-      />
-    </FormGroup>
-  ));
+  }, []);
 
   return (
-    <div style={{ display: "flex" }}>
-      <List>
-        {mappedBrands}
-      </List>
-      <List>
-        {mappedColors}
-      </List>
-      <List style={{ display: "flex", flexWrap: "wrap", width: "450px" }}>
-        {mappedYears}
-      </List>
+    <div style={{ display: "flex", height: "4rem", alignItems: "center" }}>
+      <Facet data={brands} name="brand" />
+      <Facet data={colors} name="color" />
+      <Facet data={years} name="minYear" />
+      <Facet data={years} name="maxYear" />
+      <Facet data={prices} name="minPrice" />
+      <Facet data={prices} name="maxPrice" />
     </div>
   );
 }

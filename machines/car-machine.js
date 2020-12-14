@@ -1,16 +1,19 @@
 import { Machine } from "xstate";
 
+const defaultFilter = {
+  brand: "",
+  color: "",
+  minYear: "",
+  maxYear: "",
+  minPrice: "",
+  maxPrice: "",
+};
 export const carMachine = Machine(
   {
     id: "global",
     initial: "hide",
     context: {
-      filter: {
-        brand: [],
-        color: [],
-        year: [],
-        searchText: "",
-      },
+      filter: defaultFilter,
       open: false,
       text: "",
       handler: () => {},
@@ -32,9 +35,21 @@ export const carMachine = Machine(
             target: "hide",
             actions: ["addColorToStore"],
           },
-          ADD_YEAR: {
+          ADD_MINYEAR: {
             target: "hide",
-            actions: ["addYearToStore"],
+            actions: ["addMinYearToStore"],
+          },
+          ADD_MAXYEAR: {
+            target: "hide",
+            actions: ["addMaxYearToStore"],
+          },
+          ADD_MINPRICE: {
+            target: "hide",
+            actions: ["addMinPriceToStore"],
+          },
+          ADD_MAXPRICE: {
+            target: "hide",
+            actions: ["addMaxPriceToStore"],
           },
           ADD_SEARCH_TEXT: {
             target: "hide",
@@ -43,6 +58,10 @@ export const carMachine = Machine(
           CLEAR_FILTER: {
             target: "hide",
             actions: ["clearFilter"],
+          },
+          SET_FILTERS: {
+            target: "hide",
+            actions: ["setAllFilters"],
           },
         },
       },
@@ -79,19 +98,18 @@ export const carMachine = Machine(
         ctx.handler = () => {};
       },
       clearFilter: (ctx) => {
-        console.log(ctx);
-        ctx.filter = {
-          brand: [],
-          color: [],
-          year: [],
-        };
+        ctx.filter = defaultFilter;
       },
       push: (ctx) => ctx.push(),
       addBrandToStore: (ctx, evt) => (ctx.filter.brand = evt.brand),
       addColorToStore: (ctx, evt) => (ctx.filter.color = evt.color),
       addYearToStore: (ctx, evt) => (ctx.filter.year = evt.year),
-
+      addMinYearToStore: (ctx, evt) => (ctx.filter.minYear = evt.minYear),
+      addMaxYearToStore: (ctx, evt) => (ctx.filter.maxYear = evt.maxYear),
+      addMinPriceToStore: (ctx, evt) => (ctx.filter.minPrice = evt.minPrice),
+      addMaxPriceToStore: (ctx, evt) => (ctx.filter.maxPrice = evt.maxPrice),
       addSearchText: (ctx, evt) => (ctx.filter.searchText = evt.searchText),
+      setAllFilters: (ctx, evt) => (ctx.filter = evt.filter),
     },
   },
 );

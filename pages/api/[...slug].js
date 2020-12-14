@@ -9,8 +9,12 @@ const typeDefs = gql`
   ${carType}
   ${carInputType}
   
+  type PaginatedCar {
+      cars: [Car]
+      count: Int
+  }
   type Query {
-   getAllCars: [Car]
+   getAllCars: PaginatedCar
       getCarById(id:ID!): Car
    getFilteredCars(filter: FilterInput!): [Car]
   }  
@@ -20,12 +24,15 @@ const typeDefs = gql`
     deleteCar(id:ID!): Car
   }
   input FilterInput {
-      brand: [String]
-      color: [String]
-      model: [String]
-      year: [String]
+      brand: String
+      color: String
+      model: String
+      minYear: String
+      maxYear: String
+      minPrice: String
+      maxPrice: String
       searchText: String
-  }
+  }  
 `;
 
 const resolvers = {

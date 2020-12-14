@@ -60,8 +60,8 @@ CarListItem.propTypes = {
   _id: PropTypes.string.isRequired,
   brand: PropTypes.string.isRequired,
   model: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
   photo: PropTypes.string.isRequired,
-  mileage: PropTypes.string.isRequired,
+  mileage: PropTypes.number.isRequired,
 };

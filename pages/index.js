@@ -21,19 +21,20 @@ export default function Home({ cars = [] }) {
 }
 
 Home.getInitialProps = async () => {
-  const cars = await getAllCars();
+  const res = await getAllCars();
+
   return {
-    cars,
+    cars: res.cars,
   };
 };
 
 Home.propTypes = PropTypes.shape({
   cars: PropTypes.arrayOf(PropTypes.shape({
     brand: PropTypes.string.isRequired,
-    mileage: PropTypes.string.isRequired,
+    mileage: PropTypes.number.isRequired,
     model: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
   }).isRequired).isRequired,
 }).isRequired;
