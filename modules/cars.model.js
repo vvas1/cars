@@ -11,10 +11,14 @@ const cars = new Schema({
   photo: String,
   engine: String,
   transmission: String,
-  categories: [String],
+  category: String,
   externalColor: String,
   colorSimpleName: String,
   description: String,
+  date: {
+    type: String,
+    default: Date.now(),
+  },
 });
 
 export default mongoose.models && mongoose.models.cars

@@ -7,8 +7,12 @@ class CarsServices {
     return { cars, count };
   }
 
-  getCarById({ id }) {
-    return Cars.findById(id);
+  async getCarById({ id }) {
+    const car = await Cars.findById(id);
+    if (!car) {
+      throw new Error("car not found");
+    }
+    return car;
   }
 
   async addCar({ car }) {

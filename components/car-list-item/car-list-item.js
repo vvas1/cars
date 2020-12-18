@@ -32,19 +32,23 @@ export function CarListItem({
                   {model}
                 </Typography>
                 <Typography>
+                  Year:
+                  {" "}
                   {year}
                 </Typography>
                 <Typography>
+                  Mileage:
+                  {" "}
                   {mileage}
                 </Typography>
               </Grid>
-              <Grid item className={classes.buttonDiv}>
+              <Grid className={classes.buttonDiv}>
                 <Link href={`/car/${_id}`}>
                   <Button>show more</Button>
                 </Link>
               </Grid>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography component="h5" gutterBottom>
                 {`$ ${price}`}
               </Typography>

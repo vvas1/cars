@@ -7,8 +7,12 @@ import { MainContext } from "../context/mainContext";
 import Facet from "./facet";
 
 export default function Filters() {
-  const { state, send } = useContext(MainContext);
+  const {
+    state,
+    send,
+  } = useContext(MainContext);
   const router = useRouter();
+
   useEffect(() => {
     if (router.route !== "/") {
       if (
@@ -16,11 +20,11 @@ export default function Filters() {
           && router.query.brand
           && router.query.brand !== state.context.filter.brand)
         || (!state.context.filter.color
-          && router.query.color
-          && router.query.color !== state.context.filter.color)
+        && router.query.color
+        && router.query.color !== state.context.filter.color)
         || (!state.context.filter.minYear
-          && router.query.minYear
-          && router.query.minYear !== state.context.filter.minYear)
+        && router.query.minYear
+        && router.query.minYear !== state.context.filter.minYear)
         || (!state.context.filter.maxYear
         && router.query.maxYear
         && router.query.maxYear !== state.context.filter.maxYear)
@@ -30,6 +34,9 @@ export default function Filters() {
         || (!state.context.filter.maxPrice
         && router.query.maxPrice
         && router.query.maxPrice !== state.context.filter.maxPrice)
+        || (!state.context.filter.searchText
+        && router.query.searchText
+        && router.query.searchText !== state.context.filter.searchText)
       ) {
         send({
           type: "SET_FILTERS",
@@ -40,14 +47,29 @@ export default function Filters() {
             maxYear: router.query.maxYear,
             minPrice: router.query.minPrice,
             maxPrice: router.query.maxPrice,
+            searchText: router.query.searchText,
           },
         });
       }
     }
   }, []);
 
+  useEffect(() => {
+    if (router.route === "/") {
+      send({ type: "CLEAR_FILTER" });
+    }
+  }, []);
+
   return (
-    <div style={{ display: "flex", height: "4rem", alignItems: "center" }}>
+    <div style={{
+      padding: "2rem",
+      width: "100%",
+      display: "grid",
+      gap: "1rem",
+      gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+      gridTemplateRows: "auto",
+    }}
+    >
       <Facet data={brands} name="brand" />
       <Facet data={colors} name="color" />
       <Facet data={years} name="minYear" />

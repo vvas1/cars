@@ -7,6 +7,7 @@ const defaultFilter = {
   maxYear: "",
   minPrice: "",
   maxPrice: "",
+  searchText: "",
 };
 export const carMachine = Machine(
   {
@@ -98,7 +99,15 @@ export const carMachine = Machine(
         ctx.handler = () => {};
       },
       clearFilter: (ctx) => {
-        ctx.filter = defaultFilter;
+        ctx.filter = {
+          brand: "",
+          color: "",
+          maxPrice: "",
+          maxYear: "",
+          minPrice: "",
+          minYear: "",
+          searchText: "",
+        };
       },
       push: (ctx) => ctx.push(),
       addBrandToStore: (ctx, evt) => (ctx.filter.brand = evt.brand),

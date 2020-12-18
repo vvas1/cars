@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useStyles } from "./car-form.styles";
 import { carValidationMessages } from "../../configs/validation";
 import { carRegExp } from "../../configs/regexpSchemas";
-import { colors, years } from "../../configs";
+import { colors, years, categories } from "../../configs";
 import { MainContext } from "../../context/mainContext";
 import { addCar, updateCar } from "../../operations/car-operations";
 import { loading } from "../Loading";
@@ -47,6 +47,8 @@ export function CarForm({ edit = false, car = {} }) {
     <option key={color}>{color}</option>
   ));
   const mappedYears = years.map((year) => <option key={year}>{year}</option>);
+
+  const mappedCategories = categories.map((category) => <option key={category}>{category}</option>);
 
   const formSchema = Yup.object().shape({
     brand: Yup.string()
@@ -96,6 +98,11 @@ export function CarForm({ edit = false, car = {} }) {
       .min(2, MIN_LENGTH_MESSAGE)
       .max(100, MAX_LENGTH_MESSAGE)
       .required(VALIDATION_ERROR),
+
+    category: Yup.string()
+      .min(2, MIN_LENGTH_MESSAGE)
+      .max(100, MAX_LENGTH_MESSAGE)
+      .required(VALIDATION_ERROR),
   });
 
   const {
@@ -119,6 +126,7 @@ export function CarForm({ edit = false, car = {} }) {
       transmission: car.transmission || "",
       externalColor: car.externalColor || "",
       colorSimpleName: car.colorSimpleName || "",
+      category: car.category || "",
     },
     onSubmit: (data) => {
       if (edit) {
@@ -361,6 +369,28 @@ export function CarForm({ edit = false, car = {} }) {
                     {touched.transmission && errors.transmission && (
                       <div className={classes.inputError}>
                         {errors.transmission}
+                      </div>
+                    )}
+                  </div>
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="category"
+                      error={touched.category && errors.category}
+                      placeholder="choose a category"
+                      label="category"
+                      select
+                      SelectProps={{ native: true }}
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.category}
+                    >
+                      {mappedCategories}
+                    </TextField>
+                    {touched.category && errors.category && (
+                      <div className={classes.inputError}>
+                        {errors.category}
                       </div>
                     )}
                   </div>

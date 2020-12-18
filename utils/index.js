@@ -20,6 +20,7 @@ export const helper = (state = {}, send) => {
 
     filter.brand = state.context.filter.brand;
     filter.color = state.context.filter.color;
+    filter.searchText = state.context.filter.searchText;
 
     router.push({
       pathname: "/search",

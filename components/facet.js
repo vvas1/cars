@@ -17,7 +17,6 @@ export default function Facet({ data, name }) {
 
   return (
     <TextField
-      style={{ width: "180px" }}
       name={name}
       select
       SelectProps={{ native: true }}

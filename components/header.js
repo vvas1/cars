@@ -41,9 +41,12 @@ export default function Header() {
   return (
     <div className={styles.header}>
       <Link href="/">
-        <h1>
-          CARS
-        </h1>
+        <a>
+          {" "}
+          <h1>
+            CARS
+          </h1>
+        </a>
       </Link>
       <Paper
         style={{

@@ -9,10 +9,11 @@ type Car {
   photo: String
   engine: String
   transmission: String
-  categories: [String]
+  category: String
   externalColor: String
   colorSimpleName: String
-    description:String
+  description: String
+  date: String
 }`;
 
 export const carInputType = `
@@ -25,7 +26,7 @@ input CarInput {
   photo: String
   engine: String
   transmission: String
-  categories: [String]
+  category: String
   externalColor: String
   colorSimpleName: String
   description:String

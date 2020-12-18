@@ -47,7 +47,12 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-const handler = server.createHandler({ path: "/api/graphql" });
+const handler = server.createHandler({
+  path: "/api/graphql",
+  onHealthCheck: () => {
+    console.log("server is running...");
+  },
+});
 
 export const config = {
   api: {
