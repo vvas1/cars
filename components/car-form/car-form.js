@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { Button, TextField } from "@material-ui/core";
+import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Image } from "@material-ui/icons";
@@ -10,9 +10,10 @@ import Link from "next/link";
 import { useStyles } from "./car-form.styles";
 import { carValidationMessages } from "../../configs/validation";
 import { carRegExp } from "../../configs/regexpSchemas";
-import { colors, years } from "../../configs";
+import { colors, years, categories } from "../../configs";
 import { MainContext } from "../../context/mainContext";
 import { addCar, updateCar } from "../../operations/car-operations";
+import { loading } from "../Loading";
 
 const {
   MIN_LENGTH_MESSAGE,
@@ -46,6 +47,8 @@ export function CarForm({ edit = false, car = {} }) {
     <option key={color}>{color}</option>
   ));
   const mappedYears = years.map((year) => <option key={year}>{year}</option>);
+
+  const mappedCategories = categories.map((category) => <option key={category}>{category}</option>);
 
   const formSchema = Yup.object().shape({
     brand: Yup.string()
@@ -95,6 +98,11 @@ export function CarForm({ edit = false, car = {} }) {
       .min(2, MIN_LENGTH_MESSAGE)
       .max(100, MAX_LENGTH_MESSAGE)
       .required(VALIDATION_ERROR),
+
+    category: Yup.string()
+      .min(2, MIN_LENGTH_MESSAGE)
+      .max(100, MAX_LENGTH_MESSAGE)
+      .required(VALIDATION_ERROR),
   });
 
   const {
@@ -118,6 +126,7 @@ export function CarForm({ edit = false, car = {} }) {
       transmission: car.transmission || "",
       externalColor: car.externalColor || "",
       colorSimpleName: car.colorSimpleName || "",
+      category: car.category || "",
     },
     onSubmit: (data) => {
       if (edit) {
@@ -127,7 +136,7 @@ export function CarForm({ edit = false, car = {} }) {
     },
   });
 
-  return (
+  return (loading() ? <CircularProgress /> : (
     <Paper elevation={10}>
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper}>
@@ -155,7 +164,6 @@ export function CarForm({ edit = false, car = {} }) {
             <Grid container md={8}>
               <Grid container md={12} style={{ padding: "1rem" }}>
                 <Grid
-                  xs={12}
                   sm={12}
                   md={12}
                   style={{ padding: "1rem 1rem 0" }}
@@ -364,6 +372,28 @@ export function CarForm({ edit = false, car = {} }) {
                       </div>
                     )}
                   </div>
+                  <div className={classes.inputMargin}>
+                    <TextField
+                      name="category"
+                      error={touched.category && errors.category}
+                      placeholder="choose a category"
+                      label="category"
+                      select
+                      SelectProps={{ native: true }}
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={values.category}
+                    >
+                      {mappedCategories}
+                    </TextField>
+                    {touched.category && errors.category && (
+                      <div className={classes.inputError}>
+                        {errors.category}
+                      </div>
+                    )}
+                  </div>
                 </Grid>
                 <Grid
                   xs={12}
@@ -408,5 +438,6 @@ export function CarForm({ edit = false, car = {} }) {
         </Paper>
       </form>
     </Paper>
+  )
   );
 }

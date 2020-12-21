@@ -1,40 +1,41 @@
+import { Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
-import MainLayout from "../components/main-layout";
 import Filters from "../components/filters";
 import { CarListItem } from "../components/car-list-item/car-list-item";
+import MainLayout from "../components/main-layout";
 import styles from "../styles/Home.module.css";
-import { getAllCars } from "../operations/car-operations";
+import { getFilteredCars } from "../operations/car-operations";
 
-export default function Home({ cars = [] }) {
-  const mappedCars = cars.map((value) => <CarListItem key={value._id} {...value} />);
-
+export default function Search({ cars = [] }) {
+  const mapped = cars.map((car) => <CarListItem key={car._id} {...car} />);
   return (
     <MainLayout>
-
       <Filters />
-      <div className={styles.cars}>
-        {mappedCars}
-      </div>
-
+      {cars && (
+        <Paper className={styles.cars}>
+          {mapped}
+        </Paper>
+      )}
     </MainLayout>
   );
 }
 
-Home.getInitialProps = async () => {
-  const res = await getAllCars();
-
+Search.getInitialProps = async (ctx) => {
+  const cars = await getFilteredCars((ctx.query));
   return {
-    cars: res.cars,
+    cars,
   };
 };
 
-Home.propTypes = PropTypes.shape({
+Search.propTypes = PropTypes.shape({
   cars: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     brand: PropTypes.string.isRequired,
     mileage: PropTypes.number.isRequired,
     model: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     year: PropTypes.number.isRequired,
+
   }).isRequired).isRequired,
 }).isRequired;

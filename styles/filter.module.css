@@ -1,0 +1,10 @@
+.filter_list_item {
+  padding-left: 1rem;
+  min-width: 80px;
+}
+
+.filter_list_item_checked {
+  padding-left: 1rem;
+  min-width: 80px;
+  background-color: #e0e6f0;
+}

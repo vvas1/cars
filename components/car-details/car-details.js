@@ -1,13 +1,15 @@
-import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import Router from "next/router";
 import Link from "next/link";
+import Typography from "@material-ui/core/Typography";
+import { CircularProgress } from "@material-ui/core";
 import { useStyles } from "./car-details.styles";
 import { MainContext } from "../../context/mainContext";
 import { deleteCar } from "../../operations/car-operations";
+import { loading } from "../Loading";
 
 export default function CarDetails({ car }) {
   const { photo, ...carDetails } = car;
@@ -35,7 +37,8 @@ export default function CarDetails({ car }) {
       </Typography>
     </li>
   ));
-  return (
+
+  return (loading() ? <CircularProgress /> : (
     <Paper elevation={10} className={classes.root}>
       <Typography className={classes.image}><img alt={`${carDetails.brand} ${carDetails.model} ${carDetails.year}`} className={classes.img} src={photo} /></Typography>
       <Typography component="div" className={classes.text}>
@@ -48,6 +51,8 @@ export default function CarDetails({ car }) {
         </Typography>
       </Typography>
     </Paper>
+  )
+
   );
 }
 
@@ -56,9 +61,9 @@ CarDetails.propTypes = {
     _id: PropTypes.string.isRequired,
     brand: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    mileage: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    mileage: PropTypes.number.isRequired,
     transmission: PropTypes.string.isRequired,
     externalColor: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,

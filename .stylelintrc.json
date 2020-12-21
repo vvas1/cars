@@ -23,7 +23,6 @@
       }
     ],
     "max-empty-lines": 2,
-    "unit-allowed-list": ["em", "rem", "%", "s","vw","vh","px"]
+    "unit-allowed-list": ["em", "rem", "%", "s","vw","vh","px","fr"]
   }
-
 }

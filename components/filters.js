@@ -1,51 +1,81 @@
-import Checkbox from "@material-ui/core/Checkbox";
-import List from "@material-ui/core/List";
-import { FormControlLabel } from "@material-ui/core";
-import FormGroup from "@material-ui/core/FormGroup";
-import "../styles/filter.module.scss";
-import { useState } from "react";
-import { colors, brands } from "../configs";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import {
+  colors, brands, years, prices,
+} from "../configs";
+import { MainContext } from "../context/mainContext";
+import Facet from "./facet";
 
 export default function Filters() {
-  const [brandFilters, setBrandFilters] = useState([]);
-  const brandChangeHandler = (e) => {
-    if (e.target.checked) {
-      setBrandFilters([...brandFilters, e.target.value]);
-      return;
-    }
-    setBrandFilters(brandFilters.filter((value) => value !== e.target.value));
-  };
+  const {
+    state,
+    send,
+  } = useContext(MainContext);
+  const router = useRouter();
 
-  const mappedBrands = brands.map((value) => (
-    <FormGroup className="filter-list-item" key={value} aria-label={value}>
-      <FormControlLabel
-        onChange={brandChangeHandler}
-        value={value}
-        control={<Checkbox color="primary" />}
-        label={value}
-        labelPlacement="end"
-      />
-    </FormGroup>
-  ));
-  const mappedColors = colors.map((value) => (
-    <FormGroup className="filter-list-item" key={value} aria-label={value}>
-      <FormControlLabel
-        value={value}
-        control={<Checkbox color="primary" />}
-        label={value}
-        labelPlacement="end"
-      />
-    </FormGroup>
-  ));
+  useEffect(() => {
+    if (router.route !== "/") {
+      if (
+        (!state.context.filter.brand
+          && router.query.brand
+          && router.query.brand !== state.context.filter.brand)
+        || (!state.context.filter.color
+        && router.query.color
+        && router.query.color !== state.context.filter.color)
+        || (!state.context.filter.minYear
+        && router.query.minYear
+        && router.query.minYear !== state.context.filter.minYear)
+        || (!state.context.filter.maxYear
+        && router.query.maxYear
+        && router.query.maxYear !== state.context.filter.maxYear)
+        || (!state.context.filter.minPrice
+        && router.query.minPrice
+        && router.query.minPrice !== state.context.filter.minPrice)
+        || (!state.context.filter.maxPrice
+        && router.query.maxPrice
+        && router.query.maxPrice !== state.context.filter.maxPrice)
+        || (!state.context.filter.searchText
+        && router.query.searchText
+        && router.query.searchText !== state.context.filter.searchText)
+      ) {
+        send({
+          type: "SET_FILTERS",
+          filter: {
+            brand: router.query.brand,
+            color: router.query.color,
+            minYear: router.query.minYear,
+            maxYear: router.query.maxYear,
+            minPrice: router.query.minPrice,
+            maxPrice: router.query.maxPrice,
+            searchText: router.query.searchText,
+          },
+        });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (router.route === "/") {
+      send({ type: "CLEAR_FILTER" });
+    }
+  }, []);
 
   return (
-    <div style={{ display: "flex" }}>
-      <List>
-        {mappedBrands}
-      </List>
-      <List>
-        {mappedColors}
-      </List>
+    <div style={{
+      padding: "2rem",
+      width: "100%",
+      display: "grid",
+      gap: "1rem",
+      gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+      gridTemplateRows: "auto",
+    }}
+    >
+      <Facet data={brands} name="brand" />
+      <Facet data={colors} name="color" />
+      <Facet data={years} name="minYear" />
+      <Facet data={years} name="maxYear" />
+      <Facet data={prices} name="minPrice" />
+      <Facet data={prices} name="maxPrice" />
     </div>
   );
 }

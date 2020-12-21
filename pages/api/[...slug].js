@@ -9,15 +9,30 @@ const typeDefs = gql`
   ${carType}
   ${carInputType}
   
+  type PaginatedCar {
+      cars: [Car]
+      count: Int
+  }
   type Query {
-   getAllCars: [Car] 
-    getCarById(id:ID!): Car
+   getAllCars: PaginatedCar
+      getCarById(id:ID!): Car
+   getFilteredCars(filter: FilterInput!): [Car]
   }  
   type  Mutation {
     addCar(car:CarInput): Car
     updateCar(car: CarInput,id:ID!):Car
     deleteCar(id:ID!): Car
   }
+  input FilterInput {
+      brand: String
+      color: String
+      model: String
+      minYear: String
+      maxYear: String
+      minPrice: String
+      maxPrice: String
+      searchText: String
+  }  
 `;
 
 const resolvers = {
@@ -32,7 +47,12 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-const handler = server.createHandler({ path: "/api/graphql" });
+const handler = server.createHandler({
+  path: "/api/graphql",
+  onHealthCheck: () => {
+    console.log("server is running...");
+  },
+});
 
 export const config = {
   api: {

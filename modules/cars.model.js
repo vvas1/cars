@@ -6,16 +6,19 @@ const cars = new Schema({
   brand: String,
   model: String,
   year: Number,
-  firstOwner: Boolean,
   price: Number,
   mileage: Number,
   photo: String,
   engine: String,
   transmission: String,
-  categories: [String],
+  category: String,
   externalColor: String,
   colorSimpleName: String,
   description: String,
+  date: {
+    type: String,
+    default: Date.now(),
+  },
 });
 
 export default mongoose.models && mongoose.models.cars

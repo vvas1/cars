@@ -2,12 +2,20 @@ import carsServices from "./cars.services";
 
 const carsQuery = {
   getAllCars: async () => await carsServices.getAllCars(),
-  getCarById: async (parent, args) => await carsServices.getCarById(args),
+  getCarById: async (_, args) => {
+    try {
+      return await carsServices.getCarById(args);
+    } catch (e) {
+      return { message: e.message };
+    }
+  },
+  getFilteredCars: async (_, args) => await carsServices.getFilteredCars(args),
+
 };
 const carsMutation = {
   addCar: async (parent, args) => await carsServices.addCar(args),
-  updateCar: async (parent, args) => await carsServices.updateCar(args),
-  deleteCar: async (parent, args) => await carsServices.deleteCar(args),
+  updateCar: async (_, args) => await carsServices.updateCar(args),
+  deleteCar: async (_, args) => await carsServices.deleteCar(args),
 };
 
 export { carsQuery, carsMutation };

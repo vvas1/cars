@@ -2,7 +2,6 @@ const { makeStyles } = require("@material-ui/core");
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    transition: "0.3s ease-in-out",
     flexGrow: 1,
   },
   paper: {
@@ -11,18 +10,14 @@ export const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "grid",
     alignItems: "stretch",
+    minHeight: "10rem",
 
-    "@media (max-width:959px)": {
-      height: "17vw",
-    },
-    "@media (min-width:320px)": {
-      height: "100%",
-    },
   },
   image: (props) => ({
     alignSelf: "stretch",
     background: `url(${props.photo}) no-repeat center`,
     backgroundSize: "cover",
+    minHeight: "10vh",
     "@media (max-width:959px)": {
       height: "25vw",
     },
