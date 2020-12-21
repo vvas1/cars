@@ -94,7 +94,7 @@
         "no-param-reassign": [
             2,
             {
-                "props": false
+                "props": true
             }
         ],
         "no-multi-spaces": [
