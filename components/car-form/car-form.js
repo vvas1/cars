@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { Button, CircularProgress, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Image } from "@material-ui/icons";
@@ -13,7 +13,6 @@ import { carRegExp } from "../../configs/regexpSchemas";
 import { colors, years, categories } from "../../configs";
 import { MainContext } from "../../context/mainContext";
 import { addCar, updateCar } from "../../operations/car-operations";
-import { loading } from "../Loading";
 
 const {
   MIN_LENGTH_MESSAGE,
@@ -22,7 +21,10 @@ const {
   PRICE_VALIDATION_ERROR,
 } = carValidationMessages;
 
-export function CarForm({ edit = false, car = {} }) {
+export function CarForm({
+  edit = false,
+  car = {},
+}) {
   const classes = useStyles();
   const { send } = useContext(MainContext);
 
@@ -50,60 +52,62 @@ export function CarForm({ edit = false, car = {} }) {
 
   const mappedCategories = categories.map((category) => <option key={category}>{category}</option>);
 
-  const formSchema = Yup.object().shape({
-    brand: Yup.string()
-      .min(2, MIN_LENGTH_MESSAGE)
-      .max(100, MAX_LENGTH_MESSAGE)
-      .required(VALIDATION_ERROR),
+  const formSchema = Yup.object()
+    .shape({
+      brand: Yup.string()
+        .min(2, MIN_LENGTH_MESSAGE)
+        .max(100, MAX_LENGTH_MESSAGE)
+        .required(VALIDATION_ERROR),
 
-    model: Yup.string()
-      .min(2, MIN_LENGTH_MESSAGE)
-      .max(100, MAX_LENGTH_MESSAGE)
-      .required(VALIDATION_ERROR),
+      model: Yup.string()
+        .min(2, MIN_LENGTH_MESSAGE)
+        .max(100, MAX_LENGTH_MESSAGE)
+        .required(VALIDATION_ERROR),
 
-    year: Yup.string()
-      .matches(carRegExp.onlyPositiveDigits, PRICE_VALIDATION_ERROR)
-      .required(VALIDATION_ERROR),
+      year: Yup.string()
+        .matches(carRegExp.onlyPositiveDigits, PRICE_VALIDATION_ERROR)
+        .required(VALIDATION_ERROR),
 
-    engine: Yup.string()
-      .min(2, MIN_LENGTH_MESSAGE)
-      .max(100, MAX_LENGTH_MESSAGE)
-      .required(VALIDATION_ERROR),
+      engine: Yup.string()
+        .min(2, MIN_LENGTH_MESSAGE)
+        .max(100, MAX_LENGTH_MESSAGE)
+        .required(VALIDATION_ERROR),
 
-    transmission: Yup.string()
-      .min(2, MIN_LENGTH_MESSAGE)
-      .max(100, MAX_LENGTH_MESSAGE)
-      .required(VALIDATION_ERROR),
+      transmission: Yup.string()
+        .min(2, MIN_LENGTH_MESSAGE)
+        .max(100, MAX_LENGTH_MESSAGE)
+        .required(VALIDATION_ERROR),
 
-    mileage: Yup.string()
-      .matches(carRegExp.onlyPositiveDigits, PRICE_VALIDATION_ERROR)
-      .required(VALIDATION_ERROR),
+      mileage: Yup.string()
+        .matches(carRegExp.onlyPositiveDigits, PRICE_VALIDATION_ERROR)
+        .required(VALIDATION_ERROR),
 
-    price: Yup.string()
-      .matches(carRegExp.onlyPositiveDigits, PRICE_VALIDATION_ERROR)
-      .required(VALIDATION_ERROR),
-    photo: Yup.string().required(VALIDATION_ERROR),
+      price: Yup.string()
+        .matches(carRegExp.onlyPositiveDigits, PRICE_VALIDATION_ERROR)
+        .required(VALIDATION_ERROR),
+      photo: Yup.string()
+        .required(VALIDATION_ERROR),
 
-    description: Yup.string()
-      .min(2, MIN_LENGTH_MESSAGE)
-      .max(200, MAX_LENGTH_MESSAGE)
-      .required(VALIDATION_ERROR),
+      description: Yup.string()
+        .min(2, MIN_LENGTH_MESSAGE)
+        .max(200, MAX_LENGTH_MESSAGE)
+        .required(VALIDATION_ERROR),
 
-    externalColor: Yup.string()
-      .min(2, MIN_LENGTH_MESSAGE)
-      .max(100, MAX_LENGTH_MESSAGE)
-      .required(VALIDATION_ERROR),
+      externalColor: Yup.string()
+        .min(2, MIN_LENGTH_MESSAGE)
+        .max(100, MAX_LENGTH_MESSAGE)
+        .required(VALIDATION_ERROR),
 
-    colorSimpleName: Yup.string()
-      .min(2, MIN_LENGTH_MESSAGE)
-      .max(100, MAX_LENGTH_MESSAGE)
-      .required(VALIDATION_ERROR),
+      colorSimpleName: Yup.string()
+        .min(2, MIN_LENGTH_MESSAGE)
+        .max(100, MAX_LENGTH_MESSAGE)
+        .required(VALIDATION_ERROR),
 
-    category: Yup.string()
-      .min(2, MIN_LENGTH_MESSAGE)
-      .max(100, MAX_LENGTH_MESSAGE)
-      .required(VALIDATION_ERROR),
-  });
+      category: Yup.string()
+        .min(2, MIN_LENGTH_MESSAGE)
+        .max(100, MAX_LENGTH_MESSAGE)
+        .required(VALIDATION_ERROR),
+    });
 
   const {
     values,
@@ -130,13 +134,16 @@ export function CarForm({ edit = false, car = {} }) {
     },
     onSubmit: (data) => {
       if (edit) {
-        updateCarhandler({ id: car._id, car: data });
+        updateCarhandler({
+          id: car._id,
+          car: data,
+        });
       }
       addCarhandler(data);
     },
   });
 
-  return (loading() ? <CircularProgress /> : (
+  return (
     <Paper elevation={10}>
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper}>
@@ -156,10 +163,19 @@ export function CarForm({ edit = false, car = {} }) {
               {values.photo ? (
                 <img
                   alt="car"
-                  style={{ maxWidth: "100%", height: "auto" }}
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                  }}
                   src={values.photo}
                 />
-              ) : <Image style={{ width: "100%", height: "100%" }} />}
+              ) : (
+                <Image style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                />
+              )}
             </Grid>
             <Grid container md={8}>
               <Grid container md={12} style={{ padding: "1rem" }}>
@@ -438,6 +454,5 @@ export function CarForm({ edit = false, car = {} }) {
         </Paper>
       </form>
     </Paper>
-  )
   );
 }
