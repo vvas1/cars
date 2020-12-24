@@ -1,5 +1,17 @@
 import { useRouter } from "next/router";
 
+export function checkExistInFilter(state, item) {
+  if (typeof item === "string" || typeof item === "number") {
+    return !!state.context.filter[item];
+  }
+}
+
+export function getFilterItem(state, item) {
+  if (typeof item === "string" || typeof item === "number") {
+    return state.context.filter[item];
+  }
+}
+
 export const helper = (state = {}, send) => {
   const router = useRouter();
   const fetchData = () => {
@@ -48,11 +60,3 @@ export const helper = (state = {}, send) => {
     fetchData,
   };
 };
-
-export function checkExistInFilter(state, item) {
-  return !!state.context.filter[item];
-}
-
-export function getFilterItem(state, item) {
-  return state.context.filter[item];
-}

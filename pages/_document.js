@@ -1,6 +1,6 @@
 import React from "react";
 import NextDocument, {
-  Html, Head, Main, NextScript,
+  Head, Html, Main, NextScript,
 } from "next/document";
 import { ServerStyleSheet as StyledComponentSheets } from "styled-components";
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from "@material-ui/styles";
