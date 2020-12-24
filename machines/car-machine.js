@@ -12,7 +12,7 @@ const defaultFilter = {
 export const carMachine = Machine(
   {
     id: "global",
-    initial: "hide",
+    initial: "initial",
     context: {
       filter: defaultFilter,
       open: false,
@@ -22,58 +22,62 @@ export const carMachine = Machine(
       id: "",
     },
     states: {
-      hide: {
+      initial: {
         on: {
           SHOW: {
             target: "show",
             actions: ["showDialog"],
           },
           ADD_BRAND: {
-            target: "hide",
+            target: "initial",
             actions: ["addBrandToStore"],
           },
           ADD_COLOR: {
-            target: "hide",
+            target: "initial",
             actions: ["addColorToStore"],
           },
           ADD_MINYEAR: {
-            target: "hide",
+            target: "initial",
             actions: ["addMinYearToStore"],
           },
           ADD_MAXYEAR: {
-            target: "hide",
+            target: "initial",
             actions: ["addMaxYearToStore"],
           },
           ADD_MINPRICE: {
-            target: "hide",
+            target: "initial",
             actions: ["addMinPriceToStore"],
           },
           ADD_MAXPRICE: {
-            target: "hide",
+            target: "initial",
             actions: ["addMaxPriceToStore"],
           },
           ADD_SEARCH_TEXT: {
-            target: "hide",
+            target: "initial",
             actions: ["addSearchText"],
           },
           CLEAR_FILTER: {
-            target: "hide",
+            target: "initial",
             actions: ["clearFilter"],
           },
           SET_FILTERS: {
-            target: "hide",
+            target: "initial",
             actions: ["setAllFilters"],
+          },
+          SET_LOADING: {
+            target: "initial",
+            actions: ["setLoading"],
           },
         },
       },
       show: {
         on: {
           DELETE: {
-            target: "hide",
+            target: "initial",
             actions: ["runHandler", "hideDialog", "clearData", "push"],
           },
           CANCEL: {
-            target: "hide",
+            target: "initial",
             actions: ["hideDialog", "clearData"],
           },
         },
@@ -119,6 +123,7 @@ export const carMachine = Machine(
       addMaxPriceToStore: (ctx, evt) => (ctx.filter.maxPrice = evt.maxPrice),
       addSearchText: (ctx, evt) => (ctx.filter.searchText = evt.searchText),
       setAllFilters: (ctx, evt) => (ctx.filter = evt.filter),
+      setLoading: (ctx, evt) => (ctx.loading = evt.loading),
     },
   },
 );
