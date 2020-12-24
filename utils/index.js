@@ -1,9 +1,9 @@
-import { useCallback } from "react";
 import { useRouter } from "next/router";
 
 export const helper = (state = {}, send) => {
   const router = useRouter();
-  const fetchData = useCallback(() => {
+  const fetchData = () => {
+    send({ type: "SET_LOADING", loading: true });
     const filter = {};
     if (state.context.filter.minYear !== "") {
       filter.minYear = state.context.filter.minYear;
@@ -26,7 +26,7 @@ export const helper = (state = {}, send) => {
       pathname: "/search",
       query: filter,
     });
-  }, [state.context.filter]);
+  };
 
   const changeHandler = (e, filter) => {
     send({
