@@ -3,24 +3,32 @@ import { useRouter } from "next/router";
 export const helper = (state = {}, send) => {
   const router = useRouter();
   const fetchData = () => {
-    send({ type: "SET_LOADING", loading: true });
+    send({
+      type: "SET_LOADING",
+      loading: true,
+    });
     const filter = {};
-    if (state.context.filter.minYear !== "") {
-      filter.minYear = state.context.filter.minYear;
+    if (checkExistInFilter(state, "minYear")) {
+      filter.minYear = getFilterItem(state, "minYear");
     }
-    if (state.context.filter.maxYear !== "") {
-      filter.maxYear = state.context.filter.maxYear;
+    if (checkExistInFilter(state, "maxYear")) {
+      filter.maxYear = getFilterItem(state, "maxYear");
     }
-    if (state.context.filter.minPrice !== "") {
-      filter.minPrice = state.context.filter.minPrice;
+    if (checkExistInFilter(state, "minPrice")) {
+      filter.minPrice = getFilterItem(state, "minPrice");
     }
-    if (state.context.filter.maxPrice !== "") {
-      filter.maxPrice = state.context.filter.maxPrice;
+    if (checkExistInFilter(state, "maxPrice")) {
+      filter.maxPrice = getFilterItem(state, "maxPrice");
     }
-
-    filter.brand = state.context.filter.brand;
-    filter.color = state.context.filter.color;
-    filter.searchText = state.context.filter.searchText;
+    if (checkExistInFilter(state, "brand")) {
+      filter.brand = getFilterItem(state, "brand");
+    }
+    if (checkExistInFilter(state, "color")) {
+      filter.color = getFilterItem(state, "color");
+    }
+    if (checkExistInFilter(state, "searchText")) {
+      filter.searchText = getFilterItem(state, "searchText");
+    }
 
     router.push({
       pathname: "/search",
@@ -40,3 +48,11 @@ export const helper = (state = {}, send) => {
     fetchData,
   };
 };
+
+export function checkExistInFilter(state, item) {
+  return !!state.context.filter[item];
+}
+
+export function getFilterItem(state, item) {
+  return state.context.filter[item];
+}
