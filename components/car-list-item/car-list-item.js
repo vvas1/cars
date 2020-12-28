@@ -44,7 +44,7 @@ export function CarListItem({
               </Grid>
               <Grid className={classes.buttonDiv}>
                 <Link href={`/car/${_id}`}>
-                  <Button>show more</Button>
+                  <a><Button>show more</Button></a>
                 </Link>
               </Grid>
             </Grid>
