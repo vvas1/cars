@@ -6,33 +6,33 @@ import connectDb from "../../utils/db";
 connectDb();
 
 const typeDefs = gql`
-  ${carType}
-  ${carInputType}
-  
-  type PaginatedCar {
-      cars: [Car]
-      count: Int
-  }
-  type Query {
-   getAllCars: PaginatedCar
-      getCarById(id:ID!): Car
-   getFilteredCars(filter: FilterInput!): [Car]
-  }  
-  type  Mutation {
-    addCar(car:CarInput): Car
-    updateCar(car: CarInput,id:ID!):Car
-    deleteCar(id:ID!): Car
-  }
-  input FilterInput {
-      brand: String
-      color: String
-      model: String
-      minYear: String
-      maxYear: String
-      minPrice: String
-      maxPrice: String
-      searchText: String
-  }  
+    ${carType}
+    ${carInputType}
+
+    type PaginatedCar {
+        cars: [Car]
+        count: Int
+    }
+    type Query {
+        getAllCars(skip: Int, limit: Int): PaginatedCar
+        getCarById(id: ID!): Car
+        getFilteredCars(filter: FilterInput, skip: Int, limit: Int): PaginatedCar
+    }
+    type  Mutation {
+        addCar(car:CarInput): Car
+        updateCar(car: CarInput,id:ID!):Car
+        deleteCar(id:ID!): Car
+    }
+    input FilterInput {
+        brand: String
+        color: String
+        model: String
+        minYear: String
+        maxYear: String
+        minPrice: String
+        maxPrice: String
+        searchText: String
+    }
 `;
 
 const resolvers = {

@@ -1,8 +1,8 @@
 import Cars from "./cars.model";
 
 class CarsServices {
-  async getAllCars() {
-    const cars = await Cars.find().limit(15).sort({ year: -1 });
+  async getAllCars({ skip, limit }) {
+    const cars = await Cars.find().skip(skip).limit(limit).sort({ year: -1 });
     const count = await Cars.countDocuments();
     return { cars, count };
   }
@@ -27,15 +27,18 @@ class CarsServices {
     return Cars.findByIdAndDelete(id);
   }
 
-  getFilteredCars({ filter }) {
+  async getFilteredCars({ filter, skip, limit }) {
     const filters = this.configureFilter(filter);
-    return Cars.find(filters);
+    const cars = await Cars.find(filters).skip(skip).limit(limit);
+    const count = await Cars.find(filters).countDocuments();
+
+    return { cars, count };
   }
 
   configureFilter(data) {
     const filter = {};
     const {
-      brand, model, minYear = 1990, maxYear = 2022, minPrice = 0, maxPrice = 222222, color, searchText,
+      brand = "", model = "", minYear = 1990, maxYear = 2022, minPrice = 0, maxPrice = 222222, color = "", searchText = "",
     } = data;
 
     if (brand) {

@@ -37,6 +37,9 @@ export default function Filters() {
         || (!state.context.filter.searchText
         && router.query.searchText
         && router.query.searchText !== state.context.filter.searchText)
+        || (!state.context.filter.currentPage
+        && router.query.page
+        && router.query.page !== state.context.filter.currentPage)
       ) {
         send({
           type: "SET_FILTERS",
@@ -49,6 +52,7 @@ export default function Filters() {
             maxPrice: router.query.maxPrice,
             searchText: router.query.searchText,
           },
+          currentPage: router.query.page,
         });
       }
     }
@@ -58,6 +62,7 @@ export default function Filters() {
     if (router.route === "/") {
       send({ type: "CLEAR_FILTER" });
     }
+    send({ type: "SET_CURRENT_PAGE", currentPage: router.query.page });
   }, []);
 
   return (
