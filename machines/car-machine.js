@@ -20,6 +20,7 @@ export const carMachine = Machine(
       handler: () => {},
       push: () => {},
       id: "",
+      loading: false,
     },
     states: {
       initial: {
