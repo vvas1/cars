@@ -1,62 +1,67 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import { Button } from "@material-ui/core";
+import { Button, Card } from "@material-ui/core";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import { useStyles } from "./car-list-item.styles";
 
 export function CarListItem({
-  _id, brand, model, price, year, photo, mileage,
+  _id,
+  brand,
+  model,
+  price,
+  year,
+  photo,
 }) {
-  const classes = useStyles({ photo });
+  const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Paper elevation={5} className={classes.paper}>
-        <Grid container spacing={2}>
-          <Grid xs={12} sm={12} md={5} className={classes.image} item />
-          <Grid
-            className={classes.textDiv}
-            item
-            xs={12}
-            sm={12}
-            md={7}
-            container
-          >
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  {brand}
-                  {" "}
-                  {model}
-                </Typography>
-                <Typography>
-                  Year:
-                  {" "}
-                  {year}
-                </Typography>
-                <Typography>
-                  Mileage:
-                  {" "}
-                  {mileage}
-                </Typography>
-              </Grid>
-              <Grid className={classes.buttonDiv}>
-                <Link href={`/car/${_id}`}>
-                  <a><Button>show more</Button></a>
-                </Link>
-              </Grid>
+    <Card elevation={3}>
+      <Grid container className={classes.mainContainer}>
+        <Grid item md={6} className={classes.imageContainer}>
+          <img alt={model} className={classes.image} src={photo}/>
+        </Grid>
+        <Grid container md={6} className={classes.textContainer}>
+          <Grid item md={12}>
+            <Grid item md={12} className={classes.titleDiv}>
+              <Typography className={classes.title}>
+                {brand}
+                {" "}
+                {model}
+              </Typography>
             </Grid>
-            <Grid>
-              <Typography component="h5" gutterBottom>
-                {`$ ${price}`}
+            <Grid item md={12}>
+              <Typography variant="h6">
+                Price:
+                {" "}
+                <span className={classes.price}>{`$ ${price}`}</span>
+              </Typography>
+              <Typography>
+                Year:
+                {year}
               </Typography>
             </Grid>
           </Grid>
+          <Grid container md={12}>
+            <Grid container md={12} className={classes.buttonContainer}>
+              <Grid item>
+                <Link href="/car/:id" as={`/car/${_id}`}>
+                  <a>
+                    <Button
+                      aria-label="show car details"
+                      color="primary"
+                      variant="contained"
+                    >
+                      show more
+                    </Button>
+                  </a>
+                </Link>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
-      </Paper>
-    </div>
+      </Grid>
+    </Card>
   );
 }
 
@@ -67,5 +72,4 @@ CarListItem.propTypes = {
   price: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
   photo: PropTypes.string.isRequired,
-  mileage: PropTypes.number.isRequired,
 };

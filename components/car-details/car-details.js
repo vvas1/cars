@@ -13,6 +13,7 @@ import CustomCircularProgress from "../custom-circular-progress/custom-circullar
 export default function CarDetails({ car }) {
   const {
     photo,
+    _id,
     ...carDetails
   } = car;
   const classes = useStyles();
@@ -32,7 +33,7 @@ export default function CarDetails({ car }) {
     send({
       type: "SHOW",
       text: "Are you sure you want to delete the car?",
-      handler: () => deleteCar(car._id),
+      handler: () => deleteCar(_id),
       push: () => Router.push("/"),
     });
   };
@@ -60,13 +61,12 @@ export default function CarDetails({ car }) {
           {mappedCarDetails}
         </Typography>
         <Typography className={classes.deleteButton}>
-          <Link href={`/car/edit/${carDetails._id}`}><Button variant="outlined">edit</Button></Link>
+          <Link href="/car/edit/:id" as={`/car/edit/${_id}`}><Button type="button" variant="outlined">edit</Button></Link>
           <Button type="button" onClick={deleteHandler} variant="contained">delete</Button>
         </Typography>
       </Typography>
     </Paper>
   )
-
   );
 }
 
