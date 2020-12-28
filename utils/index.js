@@ -20,6 +20,7 @@ export const helper = (state = {}, send) => {
       loading: true,
     });
     const filter = {};
+
     if (checkExistInFilter(state, "minYear")) {
       filter.minYear = getFilterItem(state, "minYear");
     }
@@ -41,17 +42,25 @@ export const helper = (state = {}, send) => {
     if (checkExistInFilter(state, "searchText")) {
       filter.searchText = getFilterItem(state, "searchText");
     }
+    if (state.context.currentPage) {
+      filter.page = state.context.currentPage;
+    }
 
     router.push({
       pathname: "/search",
       query: filter,
     });
+    window.scrollTo(0, 0);
   };
 
   const changeHandler = (e, filter) => {
     send({
       type: `ADD_${filter.toUpperCase()}`,
       [filter]: e.target.value,
+    });
+    send({
+      type: "SET_CURRENT_PAGE",
+      currentPage: 1,
     });
     fetchData();
   };

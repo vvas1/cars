@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "../styles/header.module.css";
 import { MainContext } from "../context/mainContext";
+import { helper } from "../utils";
 
 export default function Header() {
   const router = useRouter();
@@ -15,17 +16,8 @@ export default function Header() {
     send,
   } = useContext(MainContext);
 
-  const fetchData = () => {
-    const { searchText } = state.context.filter;
-    send({
-      type: "ADD_SEARCH_TEXT",
-      searchText,
-    });
-    router.push({
-      pathname: "/search",
-      query: state.context.filter,
-    });
-  };
+  const { fetchData } = helper(state, send);
+
   const submitHandler = (e) => {
     e.preventDefault();
     fetchData();

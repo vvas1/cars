@@ -18,6 +18,7 @@ export const useStyles = makeStyles({
     },
   },
   image: {
+    minWidth: "30vw",
     transition: "0.5s",
     gridArea: "image",
     display: "grid",

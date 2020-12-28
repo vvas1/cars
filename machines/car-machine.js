@@ -21,6 +21,7 @@ export const carMachine = Machine(
       push: () => {},
       id: "",
       loading: false,
+       currentPage: 1,
     },
     states: {
       initial: {
@@ -63,11 +64,15 @@ export const carMachine = Machine(
           },
           SET_FILTERS: {
             target: "initial",
-            actions: ["setAllFilters"],
+            actions: ["setAllFilters", "setCurrentPage"],
           },
           SET_LOADING: {
             target: "initial",
             actions: ["setLoading"],
+          },
+          SET_CURRENT_PAGE: {
+            target: "initial",
+            actions: ["setCurrentPage"],
           },
         },
       },
@@ -113,6 +118,7 @@ export const carMachine = Machine(
           minYear: "",
           searchText: "",
         };
+        ctx.currentPage = 1;
       },
       push: (ctx) => ctx.push(),
       addBrandToStore: (ctx, evt) => (ctx.filter.brand = evt.brand),
@@ -123,8 +129,13 @@ export const carMachine = Machine(
       addMinPriceToStore: (ctx, evt) => (ctx.filter.minPrice = evt.minPrice),
       addMaxPriceToStore: (ctx, evt) => (ctx.filter.maxPrice = evt.maxPrice),
       addSearchText: (ctx, evt) => (ctx.filter.searchText = evt.searchText),
-      setAllFilters: (ctx, evt) => (ctx.filter = evt.filter),
+      setAllFilters: (ctx, evt) => {
+        ctx.filter = evt.filter;
+        ctx.currentPage = evt.currentPage;
+      },
       setLoading: (ctx, evt) => (ctx.loading = evt.loading),
+      setCurrentPage: (ctx, evt) => (ctx.currentPage = evt.currentPage),
+
     },
   },
 );

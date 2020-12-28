@@ -122,23 +122,33 @@ export const deleteCar = async (id) => {
 
   return res.data.deleteCar;
 };
-
-export const getFilteredCars = async (filter) => {
+export const getFilteredCars = async (filter, skip, limit) => {
   const res = await client.query({
     query: gql`
-        query($filter: FilterInput!) {
-            getFilteredCars(filter: $filter) {
-                _id
-                brand
-                model
-                photo
-                price
-                year
-                mileage
+        query($filter: FilterInput, $skip: Int, $limit: Int) {
+            getFilteredCars(filter: $filter, skip: $skip, limit: $limit) {
+                cars {
+                    _id
+                    brand
+                    model
+                    photo
+                    price
+                    year
+                    mileage
+                }
+                count
             }
         }
     `,
-    variables: { filter },
+    variables: {
+      filter,
+      skip,
+      limit,
+    },
   });
-  return res.data.getFilteredCars;
+
+  return {
+    cars: res.data.getFilteredCars.cars,
+    count: res.data.getFilteredCars.count,
+  };
 };
