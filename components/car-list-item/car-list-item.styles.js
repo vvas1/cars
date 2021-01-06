@@ -47,6 +47,7 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "1.1rem",
   },
   textContainer: {
+    display: "grid",
     height: "100%",
     padding: "8px",
     "@media (max-width:959px)": {
@@ -65,6 +66,7 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
   },
   buttonContainer: {
+    display: "grid",
     alignSelf: "flex-end",
     justifyContent: "flex-end",
   },

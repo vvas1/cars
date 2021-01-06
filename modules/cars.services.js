@@ -1,9 +1,10 @@
 import Cars from "./cars.model";
 
 class CarsServices {
-  async getAllCars() {
+  async getAllCars({ skip, limit }) {
     const cars = await Cars.find()
-      .limit(15)
+      .skip(skip)
+      .limit(limit)
       .sort({ year: -1 });
     const count = await Cars.countDocuments();
     return {
@@ -46,7 +47,7 @@ class CarsServices {
   configureFilter(data) {
     const filter = {};
     const {
-      brand = "", model = "", minYear = 1990, maxYear = 2022, minPrice = 0, maxPrice = 222222, color = "", searchText = "",
+      brand = "", minYear = 1990, maxYear = 2022, minPrice = 0, maxPrice = 222222, color = "", searchText = "",
     } = data;
     if (brand) {
       filter.brand = this.setFilterItem(brand);

@@ -1,11 +1,11 @@
 import { gql } from "apollo-boost";
 import { client } from "../utils/client";
 
-export const getAllCars = async () => {
+export const getAllCars = async ({ skip, limit }) => {
   const res = await client.query({
     query: gql`
-        query {
-            getAllCars {
+        query($skip: Int, $limit: Int) {
+            getAllCars(skip: $skip, limit: $limit) {
                 cars{
                     _id
                     brand
@@ -19,6 +19,7 @@ export const getAllCars = async () => {
             }
         }
     `,
+    variables: { skip, limit },
   });
   client.resetStore();
   return res.data.getAllCars;
@@ -122,7 +123,7 @@ export const deleteCar = async (id) => {
 
   return res.data.deleteCar;
 };
-export const getFilteredCars = async (filter, skip, limit) => {
+export const getFilteredCars = async ({ filter, skip, limit }) => {
   const res = await client.query({
     query: gql`
         query($filter: FilterInput, $skip: Int, $limit: Int) {
@@ -146,6 +147,8 @@ export const getFilteredCars = async (filter, skip, limit) => {
       limit,
     },
   });
+
+  await client.clearStore();
 
   return {
     cars: res.data.getFilteredCars.cars,
