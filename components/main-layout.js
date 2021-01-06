@@ -25,7 +25,3 @@ export default function MainLayout({ children }) {
   );
 }
 
-MainLayout.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-    .isRequired,
-};

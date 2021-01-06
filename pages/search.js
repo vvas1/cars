@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { Paper } from "@material-ui/core";
+import { useContext, useEffect, useState } from "react";
+import { Fade, Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Pagination from "@material-ui/lab/Pagination";
 import Filters from "../components/filters";
@@ -12,11 +12,16 @@ import CustomCircularProgress from "../components/custom-circular-progress/custo
 import { helper } from "../utils";
 import { carsPerPage } from "../configs";
 
-export default function Search({ cars = [], count }) {
+export default function Search({
+  cars = [],
+  count,
+}) {
   const {
     state,
     send,
   } = useContext(MainContext);
+
+  const [show, setShow] = useState(false);
 
   const { fetchData } = helper(state, send);
 
@@ -25,7 +30,8 @@ export default function Search({ cars = [], count }) {
       type: "SET_LOADING",
       loading: false,
     });
-  }, [cars]);
+    setShow(true);
+  }, [cars, setShow]);
 
   const setPageHandler = (e, value) => {
     send({
@@ -39,15 +45,19 @@ export default function Search({ cars = [], count }) {
     fetchData();
   };
 
-  const mapped = cars.map((car) => <CarListItem key={car._id} {...car} />);
-  return (
+  const mappedCars = cars.map((value, index) => (
+    <Fade key={value._id} in={show} timeout={index * 200}>
+      <div><CarListItem {...value} /></div>
+    </Fade>
+
+  )); return (
     <MainLayout>
       <Filters />
       {state.context.loading ? (
         <CustomCircularProgress />
       ) : (
         <Paper className={styles.cars}>
-          {mapped}
+          {mappedCars}
         </Paper>
       )}
       <Pagination
@@ -64,12 +74,18 @@ export default function Search({ cars = [], count }) {
 }
 
 Search.getInitialProps = async (ctx) => {
-  const { page, ...filter } = ctx.query;
-  const { cars, count } = await getFilteredCars(
+  const {
+    page,
+    ...filter
+  } = ctx.query;
+  const {
+    cars,
+    count,
+  } = await getFilteredCars({
     filter,
-    (page - 1) * carsPerPage,
-    carsPerPage,
-  );
+    skip: (page - 1) * carsPerPage,
+    limit: carsPerPage,
+  });
 
   return {
     cars,

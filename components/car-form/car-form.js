@@ -149,7 +149,7 @@ export function CarForm({
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
             <Grid
-              container
+              item
               md={4}
               id="photo div"
               style={{
@@ -178,9 +178,10 @@ export function CarForm({
               )}
             </Grid>
             <Grid container md={8}>
-              <Grid container md={12} style={{ padding: "1rem" }}>
+              <Grid container style={{ padding: "1rem" }}>
                 <Grid
                   item
+                  xs={12}
                   sm={12}
                   md={12}
                   style={{ padding: "1rem 1rem 0" }}
@@ -419,7 +420,7 @@ export function CarForm({
                   item
                   style={{ padding: "0 1rem" }}
                 >
-                  <div style={{ minHeight: "70px" }}>
+                  <div style={{ marginBottom: "1rem" }}>
                     <TextField
                       name="description"
                       error={touched.description && errors.description}

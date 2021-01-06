@@ -19,9 +19,9 @@ export function CarListItem({
     <Card elevation={3}>
       <Grid container className={classes.mainContainer}>
         <Grid item md={6} className={classes.imageContainer}>
-          <img alt={model} className={classes.image} src={photo}/>
+          <img alt={model} className={classes.image} src={photo} />
         </Grid>
-        <Grid container md={6} className={classes.textContainer}>
+        <Grid item md={6} className={classes.textContainer}>
           <Grid item md={12}>
             <Grid item md={12} className={classes.titleDiv}>
               <Typography className={classes.title}>
@@ -42,8 +42,8 @@ export function CarListItem({
               </Typography>
             </Grid>
           </Grid>
-          <Grid container md={12}>
-            <Grid container md={12} className={classes.buttonContainer}>
+          <Grid container>
+            <Grid item md={12} className={classes.buttonContainer}>
               <Grid item>
                 <Link href="/car/:id" as={`/car/${_id}`}>
                   <a>
