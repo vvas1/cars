@@ -1,10 +1,12 @@
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
+import Button from "@material-ui/core/Button";
 import {
-  colors, brands, years, prices,
+  brands, colors, prices, years,
 } from "../configs";
 import { MainContext } from "../context/mainContext";
 import Facet from "./facet";
+import { helper } from "../utils";
 
 export default function Filters() {
   const {
@@ -12,6 +14,8 @@ export default function Filters() {
     send,
   } = useContext(MainContext);
   const router = useRouter();
+
+  const { fetchData } = helper(state, send);
 
   useEffect(() => {
     if (router.route !== "/") {
@@ -62,8 +66,16 @@ export default function Filters() {
     if (router.route === "/") {
       send({ type: "CLEAR_FILTER" });
     }
-    send({ type: "SET_CURRENT_PAGE", currentPage: router.query.page });
+    send({
+      type: "SET_CURRENT_PAGE",
+      currentPage: router.query.page,
+    });
   }, []);
+
+  const clearFilterHandler = () => {
+    send({ type: "CLEAR_FILTER" });
+    fetchData();
+  };
 
   return (
     <div style={{
@@ -81,6 +93,7 @@ export default function Filters() {
       <Facet data={years} name="maxYear" />
       <Facet data={prices} name="minPrice" />
       <Facet data={prices} name="maxPrice" />
+      <Button color="secondary" variant="outlined" onClick={clearFilterHandler}>clear all filters</Button>
     </div>
   );
 }

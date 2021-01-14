@@ -47,7 +47,7 @@ export default function Header() {
         }}
         component="form"
       >
-        <InputBase type="text" value={state.context.filter.searchText} onChange={changeHandler} id="searchfield" variant="outlined" />
+        <InputBase type="text" onChange={changeHandler} id="searchfield" variant="outlined">{state.context.filter.searchText}</InputBase>
         <Button type="submit" onClick={submitHandler}>
           <SearchIcon />
         </Button>

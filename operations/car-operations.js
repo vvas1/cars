@@ -148,7 +148,7 @@ export const getFilteredCars = async ({ filter, skip, limit }) => {
     },
   });
 
-  await client.clearStore();
+  client.resetStore();
 
   return {
     cars: res.data.getFilteredCars.cars,
