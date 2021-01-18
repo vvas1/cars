@@ -49,7 +49,7 @@ export const getCarById = async (id) => {
     `,
     variables: { id },
   });
-
+  client.resetStore();
   return res.data.getCarById;
 };
 

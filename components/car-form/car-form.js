@@ -82,8 +82,6 @@ export function CarForm({
       price: Yup.string()
         .matches(carRegExp.onlyPositiveDigits, PRICE_VALIDATION_ERROR)
         .required(VALIDATION_ERROR),
-      photo: Yup.string()
-        .required(VALIDATION_ERROR),
 
       description: Yup.string()
         .min(2, MIN_LENGTH_MESSAGE)

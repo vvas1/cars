@@ -11,16 +11,15 @@ const defaultFilter = {
 };
 export const carMachine = Machine(
   {
-    id: "global",
+    id: "filter",
     initial: "initial",
     context: {
       filter: defaultFilter,
       open: false,
       text: "",
       handler: () => {},
-      push: () => {},
       id: "",
-      loading: false,
+      loading: true,
       currentPage: 1,
     },
     states: {
@@ -96,7 +95,6 @@ export const carMachine = Machine(
         ctx.text = evt.text;
         ctx.open = true;
         ctx.handler = evt.handler;
-        ctx.push = evt.push;
       },
       hideDialog: (ctx) => {
         ctx.open = false;
@@ -134,7 +132,6 @@ export const carMachine = Machine(
       },
       setLoading: (ctx, evt) => (ctx.loading = evt.loading),
       setCurrentPage: (ctx, evt) => (ctx.currentPage = evt.currentPage),
-
     },
   },
 );

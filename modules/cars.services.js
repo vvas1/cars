@@ -31,19 +31,14 @@ class CarsServices {
     return car;
   }
 
-  async addCar({
-    car,
-    upload,
-  }) {
-    await cloudinary.v2.uploader(
-      upload,
-      { upload_preset: "ml_default" },
-    )
+  async addCar({ car, upload }) {
+    await cloudinary.v2.uploader
+      .upload(upload, {
+        upload_preset: 'ml_default',
+        use_filename: true,
+      })
       .then(async (result) => {
-        const {
-          url,
-          public_id,
-        } = result;
+        const { url, public_id } = result;
         car.photo = url;
         car.public_id = public_id;
         return await new Cars(car).save();
@@ -57,19 +52,17 @@ class CarsServices {
 
       return await cloudinary.v2.uploader
         .upload(upload, {
-          upload_preset: "ml_default",
+          upload_preset: 'ml_default',
           use_filename: true,
         })
         .then(async (result) => {
-          const {
-            url,
-            public_id,
-          } = result;
+          const { url, public_id } = result;
           car.photo = url;
           car.public_id = public_id;
           return await Cars.findByIdAndUpdate(id, { $set: car }, { new: true });
         });
     }
+    return Cars.findByIdAndUpdate(id, { $set: car }, { new: true });
   }
 
   async deleteCar({ id }) {
