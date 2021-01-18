@@ -80,7 +80,7 @@ export const carMachine = Machine(
         on: {
           DELETE: {
             target: "initial",
-            actions: ["runHandler", "hideDialog", "clearData", "push"],
+            actions: ["runHandler", "hideDialog", "clearData"],
           },
           CANCEL: {
             target: "initial",
@@ -120,7 +120,6 @@ export const carMachine = Machine(
         };
         ctx.currentPage = 1;
       },
-      push: (ctx) => ctx.push(),
       addBrandToStore: (ctx, evt) => (ctx.filter.brand = evt.brand),
       addColorToStore: (ctx, evt) => (ctx.filter.color = evt.color),
       addYearToStore: (ctx, evt) => (ctx.filter.year = evt.year),

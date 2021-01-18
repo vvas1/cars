@@ -19,6 +19,7 @@ const cars = new Schema({
     type: String,
     default: Date.now(),
   },
+  public_id: String,
 });
 
 export default mongoose.models && mongoose.models.cars

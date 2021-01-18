@@ -1,11 +1,21 @@
+import cloudinary from "cloudinary";
 import Cars from "./cars.model";
 
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 class CarsServices {
-  async getAllCars({ skip, limit }) {
+  async getAllCars({
+    skip,
+    limit,
+  }) {
     const cars = await Cars.find()
       .skip(skip)
       .limit(limit)
-      .sort({ year: -1 });
+      .sort({ date: -1 });
     const count = await Cars.countDocuments();
     return {
       cars,
@@ -21,33 +31,81 @@ class CarsServices {
     return car;
   }
 
-  async addCar({ car }) {
-    return await new Cars(car).save();
-  }
-
-  updateCar({
-    id,
+  async addCar({
     car,
+    upload,
   }) {
-    return Cars.findByIdAndUpdate(id, { $set: car }, { new: true });
+    await cloudinary.v2.uploader(
+      upload,
+      { upload_preset: "ml_default" },
+    )
+      .then(async (result) => {
+        const {
+          url,
+          public_id,
+        } = result;
+        car.photo = url;
+        car.public_id = public_id;
+        return await new Cars(car).save();
+      });
   }
 
-  deleteCar({ id }) {
-    return Cars.findByIdAndDelete(id);
+  async updateCar({ id, car, upload }) {
+    const foundCar = await Cars.findById(id);
+    if (upload) {
+      await cloudinary.v2.uploader.destroy(foundCar.public_id);
+
+      return await cloudinary.v2.uploader
+        .upload(upload, {
+          upload_preset: "ml_default",
+          use_filename: true,
+        })
+        .then(async (result) => {
+          const {
+            url,
+            public_id,
+          } = result;
+          car.photo = url;
+          car.public_id = public_id;
+          return await Cars.findByIdAndUpdate(id, { $set: car }, { new: true });
+        });
+    }
   }
 
-  async getFilteredCars({ filter, skip, limit }) {
+  async deleteCar({ id }) {
+    const car = await Cars.findByIdAndDelete(id);
+    await cloudinary.v2.uploader.destroy(car.public_id);
+    return car;
+  }
+
+  async getFilteredCars({
+    filter,
+    skip,
+    limit,
+  }) {
     const filters = this.configureFilter(filter);
-    const cars = await Cars.find(filters).skip(skip).limit(limit);
-    const count = await Cars.find(filters).countDocuments();
+    const cars = await Cars.find(filters)
+      .skip(skip)
+      .limit(limit);
+    const count = await Cars.find(filters)
+      .countDocuments();
 
-    return { cars, count };
+    return {
+      cars,
+      count,
+    };
   }
 
   configureFilter(data) {
     const filter = {};
     const {
-      brand = "", minYear = 1990, maxYear = 2022, minPrice = 0, maxPrice = 222222, color = "", searchText = "",
+      brand = "",
+      minYear = 1990,
+      maxYear = 2022,
+      minPrice = 0,
+      maxPrice = 222222,
+      color = "",
+      searchText = "",
     } = data;
     if (brand) {
       filter.brand = this.setFilterItem(brand);
@@ -70,7 +128,7 @@ class CarsServices {
     }
 
     if (color) {
-      filter.colorSimpleName = this.setFilterItem(color);
+      filter.externalColor = this.setFilterItem(color);
     }
 
     if (searchText) {
