@@ -34,7 +34,7 @@ class CarsServices {
   async addCar({ car, upload }) {
     await cloudinary.v2.uploader
       .upload(upload, {
-        upload_preset: 'ml_default',
+        upload_preset: "ml_default",
         use_filename: true,
       })
       .then(async (result) => {
@@ -52,7 +52,7 @@ class CarsServices {
 
       return await cloudinary.v2.uploader
         .upload(upload, {
-          upload_preset: 'ml_default',
+          upload_preset: "ml_default",
           use_filename: true,
         })
         .then(async (result) => {
