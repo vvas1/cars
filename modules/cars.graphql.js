@@ -11,7 +11,6 @@ type Car {
   transmission: String
   category: String
   externalColor: String
-  colorSimpleName: String
   description: String
   date: String
 }`;
@@ -28,6 +27,5 @@ input CarInput {
   transmission: String
   category: String
   externalColor: String
-  colorSimpleName: String
   description:String
 }`;

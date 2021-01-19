@@ -4,15 +4,15 @@ import { Button, TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Image } from "@material-ui/icons";
-import { useContext } from "react";
-import Router from "next/router";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import { useStyles } from "./car-form.styles";
 import { carValidationMessages } from "../../configs/validation";
 import { carRegExp } from "../../configs/regexpSchemas";
-import { colors, years, categories } from "../../configs";
+import { categories, years } from "../../configs";
 import { MainContext } from "../../context/mainContext";
 import { addCar, updateCar } from "../../operations/car-operations";
+import ImageUploadContainer from "../image-upload-container";
 
 const {
   MIN_LENGTH_MESSAGE,
@@ -27,13 +27,14 @@ export function CarForm({
 }) {
   const classes = useStyles();
   const { send } = useContext(MainContext);
+  const [imageToShow, setImageToShow] = useState("");
 
   const addCarhandler = (car) => {
     send({
       type: "SHOW",
       text: "Are you sure you want to add the car?",
       handler: () => addCar(car),
-      push: () => Router.push("/"),
+
     });
   };
   const updateCarhandler = (data) => {
@@ -41,13 +42,9 @@ export function CarForm({
       type: "SHOW",
       text: "Are you sure you want to update the car data?",
       handler: () => updateCar(data),
-      push: () => Router.push("/"),
     });
   };
 
-  const mappedColors = colors.map((color) => (
-    <option key={color}>{color}</option>
-  ));
   const mappedYears = years.map((year) => <option key={year}>{year}</option>);
 
   const mappedCategories = categories.map((category) => <option key={category}>{category}</option>);
@@ -85,8 +82,6 @@ export function CarForm({
       price: Yup.string()
         .matches(carRegExp.onlyPositiveDigits, PRICE_VALIDATION_ERROR)
         .required(VALIDATION_ERROR),
-      photo: Yup.string()
-        .required(VALIDATION_ERROR),
 
       description: Yup.string()
         .min(2, MIN_LENGTH_MESSAGE)
@@ -94,11 +89,6 @@ export function CarForm({
         .required(VALIDATION_ERROR),
 
       externalColor: Yup.string()
-        .min(2, MIN_LENGTH_MESSAGE)
-        .max(100, MAX_LENGTH_MESSAGE)
-        .required(VALIDATION_ERROR),
-
-      colorSimpleName: Yup.string()
         .min(2, MIN_LENGTH_MESSAGE)
         .max(100, MAX_LENGTH_MESSAGE)
         .required(VALIDATION_ERROR),
@@ -129,7 +119,6 @@ export function CarForm({
       description: car.description || "",
       transmission: car.transmission || "",
       externalColor: car.externalColor || "",
-      colorSimpleName: car.colorSimpleName || "",
       category: car.category || "",
     },
     onSubmit: (data) => {
@@ -137,11 +126,23 @@ export function CarForm({
         updateCarhandler({
           id: car._id,
           car: data,
+          upload: imageToShow,
         });
+        return;
       }
-      addCarhandler(data);
+      addCarhandler({ car: data, upload: imageToShow });
     },
   });
+
+  const handleImageLoad = (evt) => {
+    if (evt.target.files && evt.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(evt.target.files[0]);
+      reader.onload = (e) => {
+        setImageToShow(e.target.result);
+      };
+    }
+  };
 
   return (
     <Paper elevation={10}>
@@ -160,14 +161,14 @@ export function CarForm({
                 minHeight: "10rem",
               }}
             >
-              {values.photo ? (
+              {imageToShow || values.photo ? (
                 <img
                   alt="car"
                   style={{
                     maxWidth: "100%",
                     height: "auto",
                   }}
-                  src={values.photo}
+                  src={imageToShow || values.photo}
                 />
               ) : (
                 <Image style={{
@@ -187,19 +188,12 @@ export function CarForm({
                   style={{ padding: "1rem 1rem 0" }}
                 >
                   <div className={classes.inputMargin}>
-                    <TextField
-                      error={touched.photo && errors.photo}
-                      name="photo"
-                      label="Photo"
-                      placeholder="Photo"
-                      size="small"
-                      fullWidth
-                      value={values.photo}
-                      variant="outlined"
-                      onChange={handleChange}
+                    <ImageUploadContainer
+                      handler={handleImageLoad}
+                      buttonLabel="Upload photo"
                     />
-                    {touched.photo && errors.photo && (
-                      <div className={classes.inputError}>{errors.photo}</div>
+                    {touched.upload && errors.upload && (
+                      <div className={classes.inputError}>{errors.upload}</div>
                     )}
                   </div>
                 </Grid>
@@ -322,30 +316,6 @@ export function CarForm({
                     )}
                   </div>
 
-                  <div className={classes.inputMargin}>
-                    <TextField
-                      name="colorSimpleName"
-                      error={
-                        touched.colorSimpleName && errors.colorSimpleName
-                      }
-                      placeholder="Simple color"
-                      select
-                      label="Simple color"
-                      SelectProps={{ native: true }}
-                      size="small"
-                      fullWidth
-                      variant="outlined"
-                      onChange={handleChange}
-                      value={values.colorSimpleName}
-                    >
-                      {mappedColors}
-                    </TextField>
-                    {touched.colorSimpleName && errors.colorSimpleName && (
-                      <div className={classes.inputError}>
-                        {errors.colorSimpleName}
-                      </div>
-                    )}
-                  </div>
                   <div className={classes.inputMargin}>
                     <TextField
                       name="year"

@@ -1,4 +1,5 @@
 import { gql } from "apollo-boost";
+import Router from "next/router";
 import { client } from "../utils/client";
 
 export const getAllCars = async ({ skip, limit }) => {
@@ -24,23 +25,7 @@ export const getAllCars = async ({ skip, limit }) => {
   client.resetStore();
   return res.data.getAllCars;
 };
-export const getCarsId = async () => {
-  const res = await client.query({
-    query: gql`
-        query {
-            getAllCars {
-                cars{
-                    _id
-                }
-                count
-            }
-        }
-    `,
-    fetchPolicy: "no-cache",
-  });
-  client.resetStore();
-  return res.data.getAllCars.cars;
-};
+
 export const getCarById = async (id) => {
   const res = await client.query({
     query: gql`
@@ -56,38 +41,41 @@ export const getCarById = async (id) => {
                 externalColor
                 photo
                 engine
-                colorSimpleName
                 description
+                category
+                date
             }
         }
     `,
     variables: { id },
   });
-
+  client.resetStore();
   return res.data.getCarById;
 };
 
-export const addCar = async (car) => {
+export const addCar = async ({ car, upload }) => {
   car.price = +car.price;
   car.year = +car.year;
   car.mileage = +car.mileage;
+
   const res = await client.mutate({
     mutation: gql`
-        mutation($car:CarInput!) {
-            addCar(car: $car) {
+        mutation($car: CarInput!, $upload: Upload){
+        addCar(car: $car, upload: $upload) {
                 _id
             }
         }
     `,
-    variables: { car },
+    variables: { car, upload },
   });
-
+  Router.push("/");
   return res.data.addCar;
 };
 
 export const updateCar = async ({
   id,
   car,
+  upload,
 }) => {
   car.price = +car.price;
   car.year = +car.year;
@@ -95,8 +83,8 @@ export const updateCar = async ({
 
   const res = await client.mutate({
     mutation: gql`
-        mutation($id: ID!, $car: CarInput!) {
-            updateCar(id: $id, car: $car) {
+        mutation($id: ID!, $car: CarInput!, $upload: Upload) {
+            updateCar(id: $id, car: $car, upload: $upload) {
                 _id
             }
         }
@@ -104,9 +92,10 @@ export const updateCar = async ({
     variables: {
       id,
       car,
+      upload,
     },
   });
-
+  Router.push("/");
   return res.data.updateCar;
 };
 export const deleteCar = async (id) => {
@@ -135,7 +124,6 @@ export const getFilteredCars = async ({ filter, skip, limit }) => {
                     photo
                     price
                     year
-                    mileage
                 }
                 count
             }
@@ -146,6 +134,7 @@ export const getFilteredCars = async ({ filter, skip, limit }) => {
       skip,
       limit,
     },
+    fetchPolicy: "no-cache",
   });
 
   client.resetStore();

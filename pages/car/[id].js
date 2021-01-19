@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import MainLayout from "../../components/main-layout";
 import CarDetails from "../../components/car-details/car-details";
-import { getCarById, getCarsId } from "../../operations/car-operations";
+import { getCarById } from "../../operations/car-operations";
 
 export default function OneCar({ car = {} }) {
   return (
@@ -10,25 +10,13 @@ export default function OneCar({ car = {} }) {
     </MainLayout>
   );
 }
-export async function getStaticProps(ctx) {
+export async function getServerSideProps(ctx) {
   const car = await getCarById(ctx.params.id);
 
   return {
     props: {
       car,
     },
-  };
-}
-export async function getStaticPaths() {
-  const cars = await getCarsId();
-
-  return {
-    paths: cars.map((car) => ({
-      params: {
-        id: car._id,
-      },
-    })),
-    fallback: false,
   };
 }
 

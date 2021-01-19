@@ -1,6 +1,6 @@
 const { makeStyles } = require("@material-ui/core");
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },

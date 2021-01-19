@@ -24,7 +24,7 @@ export default function Facet({ data, name }) {
       label={name}
       size="small"
       fullWidth
-      value={state.context.filter[name]}
+      value={`${state.context.filter[name]}`}
       variant="outlined"
       onChange={(e) => changeHandler(e, name)}
     >

@@ -7,10 +7,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { useContext } from "react";
 import { MainContext } from "../context/mainContext";
 
-const dialogTitle = "Car deleting";
+const title = "Make a choice";
 
 export default function DialogWindow() {
-  const { state, send } = useContext(MainContext);
+  const {
+    state,
+    send,
+  } = useContext(MainContext);
 
   const agreeHandler = () => send("DELETE");
   const disagreeHandler = () => send("CANCEL");
@@ -23,7 +26,7 @@ export default function DialogWindow() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
+        <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {state.context.text}

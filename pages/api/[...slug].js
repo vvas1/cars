@@ -19,8 +19,8 @@ const typeDefs = gql`
         getFilteredCars(filter: FilterInput, skip: Int, limit: Int): PaginatedCar
     }
     type  Mutation {
-        addCar(car:CarInput): Car
-        updateCar(car: CarInput,id:ID!):Car
+        addCar(car: CarInput!, upload: Upload): Car
+        updateCar(car: CarInput!, id: ID!, upload: Upload): Car
         deleteCar(id:ID!): Car
     }
     input FilterInput {
