@@ -27,8 +27,9 @@ export const getAllCars = async ({ skip, limit }) => {
 };
 
 export const getCarById = async (id) => {
-  const res = await client.query({
-    query: gql`
+  try {
+    const res = await client.query({
+      query: gql`
         query($id: ID!) {
             getCarById(id: $id) {
                 _id
@@ -47,29 +48,39 @@ export const getCarById = async (id) => {
             }
         }
     `,
-    variables: { id },
-  });
-  client.resetStore();
-  return res.data.getCarById;
+      variables: { id },
+      fetchPolicy: "no-cache",
+    });
+    client.resetStore();
+    return res.data.getCarById;
+  } catch (e) {
+    return { error: e.message.replace("GraphQL error:", "") };
+  }
 };
 
 export const addCar = async ({ car, upload }) => {
-  car.price = +car.price;
-  car.year = +car.year;
-  car.mileage = +car.mileage;
+  try {
+    car.price = +car.price;
+    car.year = +car.year;
+    car.mileage = +car.mileage;
 
-  const res = await client.mutate({
-    mutation: gql`
+    const res = await client.mutate({
+      mutation: gql`
         mutation($car: CarInput!, $upload: Upload){
         addCar(car: $car, upload: $upload) {
                 _id
             }
         }
     `,
-    variables: { car, upload },
-  });
-  Router.push("/");
-  return res.data.addCar;
+      variables: { car, upload },
+    });
+    Router.push("/");
+    return res.data.addCar;
+  } catch (e) {
+    return {
+      error: e.message.replace("GraphQL error:", ""),
+    };
+  }
 };
 
 export const updateCar = async ({
@@ -77,41 +88,55 @@ export const updateCar = async ({
   car,
   upload,
 }) => {
-  car.price = +car.price;
-  car.year = +car.year;
-  car.mileage = +car.mileage;
+  try {
+    car.price = +car.price;
+    car.year = +car.year;
+    car.mileage = +car.mileage;
 
-  const res = await client.mutate({
-    mutation: gql`
-        mutation($id: ID!, $car: CarInput!, $upload: Upload) {
-            updateCar(id: $id, car: $car, upload: $upload) {
-                _id
-            }
-        }
-    `,
-    variables: {
-      id,
-      car,
-      upload,
-    },
-  });
-  Router.push("/");
-  return res.data.updateCar;
+    const res = await client.mutate({
+      mutation: gql`
+          mutation($id: ID!, $car: CarInput!, $upload: Upload) {
+              updateCar(id: $id, car: $car, upload: $upload) {
+                  _id
+              }
+          }
+      `,
+      variables: {
+        id,
+        car,
+        upload,
+      },
+    });
+    Router.push("/");
+    return res.data.updateCar;
+  } catch (e) {
+    return {
+      error: e.message,
+    };
+  }
 };
+
 export const deleteCar = async (id) => {
-  const res = await client.mutate({
-    mutation: gql`
+  try {
+    const res = await client.mutate({
+      mutation: gql`
         mutation($id: ID!) {
             deleteCar(id: $id) {
                 _id
             }
         }
     `,
-    variables: { id },
-  });
-
-  return res.data.deleteCar;
+      variables: { id },
+    });
+    Router.push("/");
+    return res.data.deleteCar;
+  } catch (e) {
+    return {
+      error: e.message,
+    };
+  }
 };
+
 export const getFilteredCars = async ({ filter, skip, limit }) => {
   const res = await client.query({
     query: gql`

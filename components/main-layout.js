@@ -1,5 +1,4 @@
 import Head from "next/head";
-import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import styles from "../styles/Home.module.css";
 import DialogWindow from "./dialog-window";

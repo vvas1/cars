@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import cloudinary from "cloudinary";
 import Cars from "./cars.model";
 
@@ -24,9 +25,12 @@ class CarsServices {
   }
 
   async getCarById({ id }) {
+    if (!mongoose.isValidObjectId(id)) {
+      throw new Error("Not valid ID format");
+    }
     const car = await Cars.findById(id);
     if (!car) {
-      throw new Error("car not found");
+      throw new Error("Car not found");
     }
     return car;
   }
@@ -42,11 +46,23 @@ class CarsServices {
         car.photo = url;
         car.public_id = public_id;
         return await new Cars(car).save();
+      })
+      .catch((e) => {
+        throw new Error("Image not provided");
       });
   }
 
   async updateCar({ id, car, upload }) {
+    if (!mongoose.isValidObjectId(id)) {
+      throw new Error("Not valid ID format");
+    }
+
     const foundCar = await Cars.findById(id);
+
+    if (!foundCar) {
+      throw new Error("Car not found");
+    }
+
     if (upload) {
       await cloudinary.v2.uploader.destroy(foundCar.public_id);
 
@@ -66,7 +82,14 @@ class CarsServices {
   }
 
   async deleteCar({ id }) {
+    if (!mongoose.isValidObjectId(id)) {
+      throw new Error("Not valid ID format");
+    }
     const car = await Cars.findByIdAndDelete(id);
+    if (!car) {
+      throw new Error("Car not found");
+    }
+
     await cloudinary.v2.uploader.destroy(car.public_id);
     return car;
   }

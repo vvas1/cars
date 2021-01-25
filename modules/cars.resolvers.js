@@ -2,13 +2,7 @@ import carsServices from "./cars.services";
 
 const carsQuery = {
   getAllCars: async (_, args) => await carsServices.getAllCars(args),
-  getCarById: async (_, args) => {
-    try {
-      return await carsServices.getCarById(args);
-    } catch (e) {
-      return { message: e.message };
-    }
-  },
+  getCarById: async (_, args) => await carsServices.getCarById(args),
   getFilteredCars: async (_, args) => await carsServices.getFilteredCars(args),
 
 };
