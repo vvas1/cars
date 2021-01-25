@@ -5,15 +5,19 @@ export const useStyles = makeStyles(() => ({
     flexGrow: 1,
   },
   mainContainer: {
-    height: "12vw",
+    height: "8vw",
 
     "@media (max-width:2560px)": {
       height: "9vw",
     },
-    "@media (max-width:1980px)": {
+    "@media (max-width:1920px)": {
       height: "12vw",
     },
     "@media (max-width:1440px)": {
+      height: "14vw",
+    },
+
+    "@media (max-width:1280px)": {
       height: "16vw",
     },
     "@media (max-width:1024px)": {
@@ -47,6 +51,7 @@ export const useStyles = makeStyles(() => ({
     fontSize: "1.1rem",
   },
   textContainer: {
+    width: "100%",
     display: "grid",
     height: "100%",
     padding: "8px",
@@ -66,6 +71,7 @@ export const useStyles = makeStyles(() => ({
     fontWeight: 700,
   },
   buttonContainer: {
+    width: "100%",
     display: "grid",
     alignSelf: "flex-end",
     justifyContent: "flex-end",

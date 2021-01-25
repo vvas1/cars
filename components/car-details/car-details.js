@@ -17,6 +17,7 @@ export default function CarDetails({ car }) {
   const {
     state,
     send,
+    toast,
   } = useContext(MainContext);
 
   useEffect(() => {
@@ -30,7 +31,31 @@ export default function CarDetails({ car }) {
     send({
       type: "SHOW",
       text: "Are you sure you want to delete the car?",
-      handler: () => deleteCar(car._id),
+      handler: async () => {
+        const deletedCar = await deleteCar(car._id);
+
+        if (deletedCar && deletedCar.error) {
+          toast.error(deletedCar.error, {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+          });
+          return;
+        }
+        toast.success("Car successfully deleted!", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+        });
+      },
     });
   };
 

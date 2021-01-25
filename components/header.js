@@ -20,6 +20,7 @@ export default function Header() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    send({ type: "SET_CURRENT_PAGE", currentPage: 1 });
     fetchData();
   };
 
