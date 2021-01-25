@@ -23,6 +23,7 @@ export async function getServerSideProps(ctx) {
 OneCar.propTypes = {
   car: PropTypes.shape({
     brand: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
@@ -30,5 +31,8 @@ OneCar.propTypes = {
     transmission: PropTypes.string.isRequired,
     externalColor: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+
   }).isRequired,
 };
