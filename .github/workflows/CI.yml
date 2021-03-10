@@ -29,6 +29,7 @@ jobs:
     - run: yarn build 
     - name: Cypress tests
       with:
-          build: npx cypress info
+         uses: ./
+         build: npx cypress info
  
 
