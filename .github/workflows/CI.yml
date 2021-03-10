@@ -28,5 +28,6 @@ jobs:
     - run: yarn install
     - run: yarn build 
     - name: Cypress tests
-    - uses: cypress-io/github-action@v2
-    - run: yarn test
+      uses: cypress-io/github-action@v2
+    - name: Start tests  
+      run: yarn test
