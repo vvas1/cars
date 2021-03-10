@@ -18,7 +18,7 @@ export default function MainLayout({ children }) {
       </Paper>
       <DialogWindow />
       <footer className={styles.footer}>
-        &copy; 2020 SoftServe
+        &copy; {`${new Date().getFullYear()} SoftServe`}
       </footer>
     </>
   );
