@@ -93,7 +93,7 @@ export default function Filters() {
       <Facet data={years} name="maxYear" />
       <Facet data={prices} name="minPrice" />
       <Facet data={prices} name="maxPrice" />
-      <Button color="secondary" variant="outlined" onClick={clearFilterHandler}>clear all filters</Button>
+      <Button color="secondary" variant="outlined" onClick={clearFilterHandler}>clear filters</Button>
     </div>
   );
 }
