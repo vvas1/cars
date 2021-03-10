@@ -31,7 +31,7 @@ jobs:
     
     - name: Cypress tests
       with:
-         uses: ./
+         uses: cypress-io/github-action@v2
          build: npx cypress info
  
 
